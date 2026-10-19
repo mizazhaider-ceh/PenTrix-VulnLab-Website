@@ -514,7 +514,6 @@ html.js [data-reveal]{
   opacity:0;
   transform:translateY(26px);
   transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);
-  will-change:transform,opacity;
 }
 html.js [data-reveal].in{
   opacity:1;
