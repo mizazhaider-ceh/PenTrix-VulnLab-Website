@@ -135,7 +135,7 @@
 <section id="first-boot">
   <h2>What happens on first boot</h2>
   <div class="card" data-reveal data-rdg="2">
-    <p>On the first start, the app generates <strong>201 random flags</strong> into a local SQLite database at <code>data/vulnlab.db</code>. Each flag looks like <code>PENTRIX{</code> followed by 32 random hex characters. The <code>data/</code> directory is gitignored, and <strong>no flag literal exists in any tracked file</strong>, so reading the source on GitHub spoils nothing. Your flags are generated on your machine, which means <strong>your flags differ from everyone else's</strong>.</p>
+    <p>On the first start, the app generates <strong>201 random flags</strong> on your machine. Each flag looks like <code>PENTRIX{</code> followed by 32 random hex characters, and <strong>no flag literal exists in any tracked file</strong>, so reading the source on GitHub spoils nothing. Your flags are generated on your machine, which means <strong>your flags differ from everyone else's</strong>.</p>
   </div>
 </section>
 
@@ -164,7 +164,7 @@
       <dt>The first build is slow</dt>
       <dd>That is normal: it runs a clean <code>npm ci</code> and compiles <code>better-sqlite3</code> inside the build stage. Be patient. You only need <code>--build</code> when dependencies or the Dockerfile changed; plain <code>docker compose up</code> is enough on later starts.</dd>
       <dt>I want fresh flags</dt>
-      <dd>Flags live in the bind-mounted <code>./data</code> folder, so removing the container alone does not reset them. Stop the stack with <code>docker compose down -v</code>, delete the database file (<code>data/vulnlab.db</code>), then start again with <code>docker compose up --build</code>. The lab will generate a brand-new set of 201 flags on boot.</dd>
+      <dd>To start completely fresh, stop the stack with <code>docker compose down -v</code>, empty the <code>./data</code> directory, then run <code>docker compose up --build</code>. Your progress, badges, and flags all reset, and the lab generates a brand-new set of 201 flags on boot.</dd>
       <dt>The page is not loading</dt>
       <dd>Check the container logs with <code>docker compose logs</code>. The healthcheck needs up to 20 seconds on first boot while flags are generated, so give it a moment before treating a blank page as a failure.</dd>
     </dl>

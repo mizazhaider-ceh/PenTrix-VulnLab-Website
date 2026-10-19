@@ -121,7 +121,7 @@
       </article>
       <article class="clay-card" data-reveal data-rdg="0">
         <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Per-install random flags</h3></div>
-        <p>Flags look like <code>PENTRIX{32 hex}</code> and are generated on your machine at first boot, stored in a gitignored database. There is no flag literal anywhere in the source, so nothing can leak.</p>
+        <p>Flags look like <code>PENTRIX{32 hex}</code> and are generated on your machine at first boot. There is no flag literal anywhere in the source, so nothing can leak.</p>
         <div class="card-foot"><span class="badge-new">Born on your machine</span></div>
       </article>
       <article class="clay-card" data-reveal data-rdg="1">
@@ -191,7 +191,7 @@
     <p class="tagline" data-reveal>The short version. The <a href="docs.html">full docs</a> have the long version.</p>
     <details data-reveal><summary>Is it safe to run?</summary><div class="faq-body"><div><p>Yes, on your own machine. The lab is built to run localhost-only: the Docker setup binds to localhost, drops Linux capabilities, limits memory and CPU, and includes a healthcheck. Keep it on your own machine or an isolated lab network, and never point it at anyone else's systems.</p></div></div></details>
     <details data-reveal><summary>Can I put it on the internet?</summary><div class="faq-body"><div><p>No. PenTrix VulnLab is intentionally vulnerable, so a public deployment would be compromised within hours. Run it only on your own machine or an isolated lab network.</p></div></div></details>
-    <details data-reveal><summary>How do flags work?</summary><div class="faq-body"><div><p>Every flag looks like <code>PENTRIX{32 hex}</code> and is generated randomly on your machine at first boot, stored in a gitignored SQLite database. No flag exists in the source code, so the only way to get one is to genuinely exploit the challenge. Shortcuts earn nothing: bare beacons get 400, token replays get 400.</p></div></div></details>
+    <details data-reveal><summary>How do flags work?</summary><div class="faq-body"><div><p>Every flag looks like <code>PENTRIX{32 hex}</code> and is generated randomly on your machine at first boot. No flag exists in the source code, so the only way to get one is to genuinely exploit the challenge. Shortcuts earn nothing: bare beacons get 400, token replays get 400.</p></div></div></details>
     <p data-reveal><a class="clay-btn clay-btn-secondary" href="docs.html">Read the full docs</a></p>
   </section>
 
