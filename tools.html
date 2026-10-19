@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Hacking Toolkit - PenTrix VulnLab Tools</title>
+<meta name="description" content="The PenTrix VulnLab web hacking toolkit: Burp Suite setup, proxy config, the core intercept and replay workflow, and the essential command-line tools every challenge rewards.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="canonical" href="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/tools.html">
+<meta name="theme-color" content="#7C3AED">
+<meta property="og:title" content="Web Hacking Toolkit - PenTrix VulnLab Tools">
+<meta property="og:description" content="The PenTrix VulnLab web hacking toolkit: Burp Suite setup, proxy config, the core intercept and replay workflow, and the essential command-line tools every challenge rewards.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/tools.html">
+<meta property="og:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PenTrix VulnLab web hacking toolkit: Burp Suite and the essential tools">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Web Hacking Toolkit - PenTrix VulnLab Tools">
+<meta name="twitter:description" content="The PenTrix VulnLab web hacking toolkit: Burp Suite setup, proxy config, the core intercept and replay workflow, and the essential command-line tools every challenge rewards.">
+<meta name="twitter:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="orb" aria-hidden="true"></span>
+      <span>PenTrix VulnLab</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="install.html">Install</a>
+      <a href="quickstart.html">Quick Start</a>
+      <a href="docs.html">Docs</a>
+      <a href="tools.html" aria-current="page">Tools</a>
+      <a class="clay-btn clay-btn-sm" href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blobs" aria-hidden="true"><span class="blob-1"></span><span class="blob-2"></span><span class="blob-3"></span></div>
+
+<main class="wrap">
+  <section class="hero">
+    <h1 data-hero="1">Web Hacking Toolkit: Burp Suite + the tools that matter</h1>
+    <p class="tagline" data-hero="2">You do not need fifty tools. You need Burp Suite set up correctly, a handful of command-line workhorses, and a workflow you repeat until it is muscle memory. This page gets you from zero to intercepting traffic in about twenty minutes.</p>
+    <div class="stats" data-hero="3">
+      <div class="stat"><strong>4</strong><span>Burp features to learn</span></div>
+      <div class="stat"><strong>7</strong><span>CLI workhorses</span></div>
+      <div class="stat"><strong>15</strong><span>module mappings</span></div>
+      <div class="stat"><strong>0</strong><span>cost: all free</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="burp-suite" data-reveal data-rdg="0">
+    <h2>1. Burp Suite</h2>
+    <p>Burp Suite is the standard toolkit for testing web applications. It sits between your browser and the lab server as an intercepting proxy, so you can see every request, pause it, change it, and replay it. Nearly every one of the 201 lab challenges is solved with some part of Burp.</p>
+
+    <h3>Community vs Pro</h3>
+    <p><strong>Burp Suite Community Edition is FREE, and it is enough for all 201 lab challenges.</strong> The paid Pro version adds faster scanning and unthrottled Intruder attacks, but nothing in this lab requires it. One honest limitation: Community Edition throttles Intruder (it inserts a small delay between requests), so automated attacks run slower. For the lab's small payload lists this is only mildly annoying, never a blocker. Keep your lists short and focused.</p>
+
+    <h3>Download</h3>
+    <p>Get Burp Suite Community Edition from the official PortSwigger download page:</p>
+    <p><a class="clay-btn" href="https://portswigger.net/burp/communitydownload" target="_blank" rel="noopener">Download Burp Suite Community Edition</a></p>
+
+    <h3>Install</h3>
+    <ul>
+      <li><strong>Windows:</strong> run the downloaded installer and follow the wizard. Burp appears in your Start menu.</li>
+      <li><strong>macOS:</strong> open the downloaded DMG and drag Burp Suite into Applications.</li>
+      <li><strong>Linux:</strong> make the installer executable and run it:
+        <pre><code>chmod +x burpsuite_community_linux*.sh
+./burpsuite_community_linux*.sh</code></pre>
+      </li>
+    </ul>
+    <p>Burp needs a 64-bit operating system and a Java runtime. The bundled installers handle Java for you in almost all cases.</p>
+
+    <h3>First launch</h3>
+    <ol>
+      <li>Open Burp Suite. Choose <strong>Temporary project</strong> (no need to save anything yet).</li>
+      <li>Choose <strong>Use Burp defaults</strong> for the configuration. The defaults are correct for this lab.</li>
+      <li>Burp starts with a proxy listener on <code>127.0.0.1:8080</code>. That is the address your browser will talk to in the next section.</li>
+    </ol>
+    <div class="warning">
+      <p><strong>Burp needs the lab running.</strong> Start PenTrix VulnLab first (see the <a href="install.html">Install guide</a>), then start Burp, then point your browser through the proxy. That order avoids most first-run confusion.</p>
+    </div>
+  </section>
+
+  <section class="card" id="proxy-setup" data-reveal data-rdg="1">
+    <h2>2. Proxy setup</h2>
+    <p>Burp only sees traffic that your browser sends through it. You have two ways to route traffic: a manual browser proxy setting (simple, always works) or FoxyProxy (recommended, one click to switch on and off).</p>
+
+    <h3>Option A: manual proxy (any browser)</h3>
+    <ol>
+      <li>Open your browser's network or proxy settings.</li>
+      <li>Set the HTTP proxy to <code>127.0.0.1</code> and the port to <code>8080</code>. Enable the proxy for all protocols (HTTP and HTTPS).</li>
+      <li>Remove <code>localhost</code> and <code>127.0.0.1</code> from the proxy bypass or exceptions list. Browsers often skip the proxy for localhost by default, which means Burp sees nothing.</li>
+    </ol>
+
+    <h3>Option B: FoxyProxy (recommended)</h3>
+    <ol>
+      <li>Install the <strong>FoxyProxy</strong> browser extension from your browser's add-on store.</li>
+      <li>Add a new proxy: type HTTP, host <code>127.0.0.1</code>, port <code>8080</code>.</li>
+      <li>Set the URL pattern to <code>*://localhost:3000/*</code> (or add a pattern that matches the lab's URL) so only lab traffic goes through Burp and the rest of your browsing stays direct.</li>
+      <li>Toggle the extension on when you practice, off when you are done. One click, no settings to revert.</li>
+    </ol>
+
+    <div class="warning">
+      <p><strong>Skip the Burp CA certificate.</strong> That cert is only for intercepting HTTPS traffic. This lab is plain HTTP on localhost, so there is nothing to decrypt. Skip that step entirely for this lab.</p>
+    </div>
+
+    <h3>Scope: keep Burp focused on the lab</h3>
+    <p>Pointing your whole browser through Burp floods the history with noise from other tabs. Add the lab to Burp's target scope:</p>
+    <ol>
+      <li>Go to the <strong>Target</strong> tab, then the <strong>Scope</strong> sub-tab.</li>
+      <li>Add <code>http://localhost:3000</code> to the scope (include rule: host <code>localhost</code>, port <code>3000</code>).</li>
+      <li>Tick <strong>Use advanced scope control</strong> where available, so out-of-scope traffic stays out of your history and your site map.</li>
+    </ol>
+    <p>Quick check that everything works: with the proxy on, visit the lab. Requests should appear in <strong>Proxy &gt; HTTP history</strong>. (Certificate warnings on other, HTTPS tabs are normal: you skipped the CA on purpose, so toggle the proxy off when you leave the lab.)</p>
+  </section>
+
+  <section class="card" id="core-workflow" data-reveal data-rdg="2">
+    <h2>3. Core workflow</h2>
+    <p>Nearly every challenge follows the same rhythm: intercept a request, replay it, change one thing, observe what changes in the response. You do not need to master all of Burp. You need four core features, plus two bonus helpers at the end, and the habit of repeating this loop until it feels natural.</p>
+
+    <h3>Proxy: your window into the traffic</h3>
+    <p>The Proxy sits between your browser and the lab server. Every request passes through it, and you can hold, inspect, forward, or drop each one.</p>
+    <ul>
+      <li><strong>Intercept on/off:</strong> in the Proxy tab, open the <strong>Intercept</strong> sub-tab. The toggle decides whether requests pause in front of you. With intercept <strong>on</strong>, each request waits for you to act. With it <strong>off</strong>, traffic flows straight through but is still logged.</li>
+      <li><strong>Forward vs Drop:</strong> when a request is paused, <strong>Forward</strong> sends it to the server exactly as you see it (edit it first if you like). <strong>Drop</strong> throws it away and the browser sees the request fail.</li>
+      <li><strong>HTTP history:</strong> the log of everything, every request, every response, status codes, methods, parameters. When you wonder what you actually sent, the answer is here.</li>
+    </ul>
+    <p>Typical lab use: keep intercept <strong>off</strong> most of the time so browsing feels normal, then find the interesting request in HTTP history.</p>
+
+    <h3>Repeater: your workbench</h3>
+    <p>Repeater is where nearly every challenge gets solved. It takes one request and resends it again and again, changing one thing at a time.</p>
+    <ol>
+      <li>In HTTP history, right-click any request and choose <strong>Send to Repeater</strong> (shortcut: <strong>Ctrl+R</strong>).</li>
+      <li>Switch to the <strong>Repeater</strong> tab. Your request is now in its own numbered tab.</li>
+      <li>Edit anything: the method, the path, a header, or a value in the body.</li>
+      <li>Click <strong>Send</strong>. The response appears on the right.</li>
+      <li>Change one more thing, click Send again, and <strong>compare the two responses</strong>.</li>
+    </ol>
+    <p>The power of Repeater is iteration speed: twenty variations in a minute, watching exactly how the server reacts. Every tab keeps its own send and response history for comparison.</p>
+
+    <h3>Intruder: automated repetition</h3>
+    <p>Intruder does in Repeater's job automatically: it repeats a request with different values in chosen positions.</p>
+    <ol>
+      <li>Right-click a request and choose <strong>Send to Intruder</strong> (shortcut: <strong>Ctrl+I</strong>).</li>
+      <li>In <strong>Positions</strong>, the attack type is <strong>Sniper</strong> (the default, and the one you want here). Select a value, click <strong>Add &sect;</strong>; it now sits between two &sect; symbols.</li>
+      <li>In <strong>Payloads</strong>, use simple lists: numbers (1, 2, 3) or short word lists you type or paste.</li>
+      <li>Click <strong>Start attack</strong>. The results table shows one row per payload with response length and status code.</li>
+    </ol>
+    <p>Remember the Community throttle: attacks run slower than in Pro, so keep payload lists short and focused.</p>
+
+    <h3>Decoder: reading and writing encodings</h3>
+    <p>Servers and browsers constantly encode text (URL encoding, Base64, HTML entities). Decoder translates between encoded and readable forms. Paste text in, pick a transform (<strong>Decode as URL</strong>, <strong>Decode as Base64</strong>, <strong>Decode as HTML</strong>, or the matching <strong>Encode as</strong> versions), and chain transforms by stacking them. If a response contains a blob that looks like random characters, try Decoder before assuming it is meaningless.</p>
+
+    <h3>Comparer: spot the difference (bonus)</h3>
+    <p>When two responses look identical but the server behaves differently, Comparer finds the exact difference. Send two requests or responses to Comparer (right-click, <strong>Send to Comparer</strong>), select both items, and click <strong>Compare by words</strong>. The highlight shows which bytes changed. Typical lab use: change one value, compare the two responses, and the differing field is often the clue.</p>
+
+    <h3>Logger: the full story (bonus)</h3>
+    <p>Logger is the always-on record of everything Burp sees, Proxy traffic included, with powerful filtering. When you need to reconstruct what you did in the last ten minutes, Logger has the story. Make sure Proxy and platform traffic logging are switched on in Logger settings so the record exists when you need it.</p>
+
+    <h3>Worked mini-example: intercepting a login (mechanics only)</h3>
+    <p>This example uses no real challenge route, no flags, and no payloads. It is only about the mechanics: intercept, replay, modify, observe.</p>
+    <ol>
+      <li>In Burp, go to <strong>Proxy &gt; Intercept</strong> and toggle intercept <strong>on</strong>.</li>
+      <li>In your proxied browser, open the lab and submit the login form with any values you like (for example a test username and a test password).</li>
+      <li>Burp now holds the request. You will see a <strong>POST</strong> to the login path, with the username and password visible in the body. Nothing has reached the server yet.</li>
+      <li>Click <strong>Forward</strong>. The request goes to the server and the browser shows the login result.</li>
+      <li>Open <strong>Proxy &gt; HTTP history</strong> and find that POST (it is the most recent POST to the login path).</li>
+      <li>Right-click it and choose <strong>Send to Repeater</strong> (or press <strong>Ctrl+R</strong>).</li>
+      <li>In Repeater, change the username value to something else (another plain username, nothing special).</li>
+      <li>Click <strong>Send</strong> and read the response on the right.</li>
+      <li>Change the username to a third value, click Send again, and compare the two responses. Notice what changed and what stayed the same.</li>
+    </ol>
+    <p>That loop, intercept, find in history, send to Repeater, change one thing, send, compare responses, is the entire Burp workflow for this lab. Every challenge is a variation of it.</p>
+
+    <h3>Troubleshooting</h3>
+    <ul>
+      <li><strong>Port 8080 already in use when starting Burp.</strong> Another program (another Burp instance, a local server, Docker) is already listening on 8080. Fix: in Burp go to <strong>Proxy &gt; Proxy settings</strong> (the gear icon in the Proxy tab), edit the listener on <code>127.0.0.1:8080</code> and change the port to <code>8081</code>, then update your browser proxy config (or FoxyProxy) to <code>127.0.0.1:8081</code> so both sides match.</li>
+      <li><strong>HTTPS sites outside the lab show certificate errors.</strong> You skipped the CA install on purpose (the lab is plain HTTP, so you do not need it). Fix: that is expected. Just toggle the proxy off (FoxyProxy one click) when you browse outside the lab.</li>
+      <li><strong>Localhost traffic not appearing in Burp.</strong> The browser is bypassing the proxy for localhost (many do this by default). Fix: remove <code>localhost</code> and <code>127.0.0.1</code> from the proxy bypass or exceptions list. In FoxyProxy, check the URL pattern covers the lab's URL instead of excluding it.</li>
+      <li><strong>Burp feels slow, pages hang halfway through loading.</strong> Intercept is <strong>on</strong> and holding a request waiting for you. Fix: look at the Intercept tab. If a request is waiting, click <strong>Forward</strong> (or <strong>Drop</strong>), then turn intercept off if you do not need to pause traffic right now.</li>
+      <li><strong>Proxy configured but the browser ignores it.</strong> Firefox and Chrome/Edge handle proxy settings differently. Fix: <strong>Firefox</strong> has its own proxy settings and its own certificate store, configure both inside Firefox (Settings &gt; Network Settings for the proxy, Settings &gt; Privacy &amp; Security &gt; Certificates for the CA). <strong>Chrome and Edge</strong> use the operating system's proxy and certificate settings, so configure them at OS level (or use FoxyProxy in either browser to keep things simple).</li>
+      <li><strong>Burp will not start at all.</strong> Incompatible Java runtime or a non-executable installer on Linux. Fix: Burp needs a <strong>64-bit</strong> operating system and a compatible Java runtime (the bundled installer usually handles this). On Linux, if you downloaded the <code>.sh</code> installer, make it executable first (<code>chmod +x burpsuite_community_linux*.sh</code>), then run it. If it still fails, run it from a terminal so you can read the actual error message.</li>
+    </ul>
+  </section>
+
+  <section class="card" id="other-tools" data-reveal data-rdg="3">
+    <h2>4. Other tools</h2>
+    <p>Burp is your daily driver. These seven command-line tools cover the jobs Burp does slowly or not at all: scanning, fuzzing paths, testing SQL injection, cracking hashes, forging tokens, and mapping the network. Each entry shows the install plus the two to four commands you will actually use.</p>
+
+    <h3>OWASP ZAP</h3>
+    <p>A free, open-source web scanner and a solid second proxy. Useful when you want an automated spider and active scan of the lab, or a free alternative to Burp for a second opinion.</p>
+    <pre><code># Debian/Ubuntu (check your distro's package name, or download from zaproxy.org)
+sudo apt install zaproxy
+# Launch the GUI
+zaproxy
+# Headless quick scan of the lab
+zap.sh -cmd -quickurl http://localhost:3000 -quickprogress</code></pre>
+    <p>Download and docs: <a href="https://www.zaproxy.org/" target="_blank" rel="noopener">zaproxy.org</a></p>
+
+    <h3>sqlmap</h3>
+    <p>Automates detection and exploitation of SQL injection once you have found a suspicious parameter with Burp. Point it at a URL or at a saved Burp request.</p>
+    <pre><code># Debian/Ubuntu
+sudo apt install sqlmap
+# Test a parameter for injection (harmless detection first)
+sqlmap -u "http://localhost:3000/search?q=test" --batch
+# List databases once injection is confirmed
+sqlmap -u "http://localhost:3000/search?q=test" --dbs --batch
+# Replay an exact Burp request you saved to a file
+sqlmap -r request.txt --batch</code></pre>
+
+    <h3>ffuf</h3>
+    <p>A fast web fuzzer. Its main job in the lab: discovering hidden paths, files, and parameters by trying thousands of words quickly.</p>
+    <pre><code># Debian/Ubuntu
+sudo apt install ffuf
+# Fuzz for hidden paths on the lab
+ffuf -u http://localhost:3000/FUZZ -w /usr/share/wordlists/dirb/common.txt
+# Same, but only show 200 and 403 responses, follow redirects
+ffuf -u http://localhost:3000/FUZZ -w /usr/share/wordlists/dirb/common.txt -mc 200,403 -r</code></pre>
+
+    <h3>gobuster</h3>
+    <p>Another directory and DNS brute-forcer, written in Go and very fast. If ffuf feels fiddly, gobuster's simpler flags are a friendly alternative.</p>
+    <pre><code># Debian/Ubuntu
+sudo apt install gobuster
+# Directory brute-force on the lab
+gobuster dir -u http://localhost:3000 -w /usr/share/wordlists/dirb/common.txt
+# DNS subdomain brute-force (recon phase)
+gobuster dns -d example.com -w /usr/share/wordlists/dirb/common.txt</code></pre>
+
+    <h3>nmap</h3>
+    <p>The network mapper. In this lab its job is small but important: confirm what is listening locally and check service versions before you start.</p>
+    <pre><code># Debian/Ubuntu
+sudo apt install nmap
+# What is open on the lab host, with service versions and safe scripts
+nmap -sV -sC localhost
+# Fast full-port sweep of the lab host
+nmap -p- --min-rate 1000 localhost</code></pre>
+
+    <h3>hashcat</h3>
+    <p>Cracks hashes with wordlists and rules, using your GPU for speed. In the lab it fits the crypto module (md5-crack) and auth brute-forcing jobs.</p>
+    <pre><code># Debian/Ubuntu
+sudo apt install hashcat
+# Crack MD5 hashes with rockyou.txt
+hashcat -m 0 hashes.txt /usr/share/wordlists/rockyou.txt</code></pre>
+    <p>Docs: <a href="https://hashcat.net/wiki/" target="_blank" rel="noopener">hashcat.net/wiki</a></p>
+
+    <h3>Node with jsonwebtoken</h3>
+    <p>A scriptable way to forge and inspect JSON Web Tokens. In the lab it fits the jwt module: craft a token by hand, then send it from Repeater.</p>
+    <pre><code># Install the library
+npm install jsonwebtoken
+# Decode a token and read its payload
+node -e "console.log(require('jsonwebtoken').decode(process.argv[1]))" "eyJhbGciOi...token..."</code></pre>
+    <p>Library: <a href="https://www.npmjs.com/package/jsonwebtoken" target="_blank" rel="noopener">jsonwebtoken on npm</a></p>
+
+    <h3>Honorable mentions</h3>
+    <ul>
+      <li><strong>Nikto:</strong> quick web-server misconfiguration scan (<code>nikto -h http://localhost:3000</code>). Noisy but fast.</li>
+      <li><strong>dirsearch:</strong> another path brute-forcer with smart recursion and good defaults (<code>dirsearch -u http://localhost:3000</code>).</li>
+      <li><strong>wfuzz:</strong> the classic parameter and path fuzzer (<code>wfuzz -c -w wordlist.txt --hc 404 http://localhost:3000/FUZZ</code>).</li>
+      <li><strong>Sublist3r / amass:</strong> subdomain enumeration for the recon phase (<code>sublist3r -d example.com</code>). Mostly useful beyond localhost, but good to know the names.</li>
+    </ul>
+    <p>Wordlists live at <code>/usr/share/wordlists/</code> on Kali and Debian-based systems. For bigger lists, install <strong>SecLists</strong> (<code>sudo apt install seclists</code>).</p>
+  </section>
+
+  <section class="card" id="not" data-reveal data-rdg="1">
+    <h2>5. What not to reach for</h2>
+    <div class="warning">
+      <p><strong>Raw curl one-liners as your default.</strong> They still work, and you will use curl plenty. But if every challenge is a curl command you pasted together by trial and error, you are training your memory, not your understanding. Do it in Repeater first, where you can see the full request and the full response side by side. Graduate to curl when you know exactly what you are sending and why.</p>
+    </div>
+    <div class="warning">
+      <p><strong>Raw sockets.</strong> Nothing in this lab needs them. If you are writing socket code to talk to this lab, you have wandered off the path. Come back to Repeater.</p>
+    </div>
+  </section>
+
+  <section class="card" id="limits" data-reveal data-rdg="2">
+    <h2>6. Honest limits</h2>
+    <ul>
+      <li><strong>Burp Community's Intruder is throttled.</strong> It is slow on purpose. For this lab that is fine, the guessable spaces are small. If you find yourself waiting an hour on an attack, the approach is wrong, not the tool.</li>
+      <li><strong>No tool here replaces understanding the vulnerability.</strong> sqlmap can extract a database, but it cannot tell you <em>why</em> the query was injectable. If you cannot explain the bug in one sentence, you have not finished the challenge, even with the flag in hand.</li>
+      <li><strong>The best tool in this lab is still your own attention.</strong> Read the responses. All of them. The app tells you more than you think.</li>
+    </ul>
+  </section>
+
+  <section class="card" id="tool-mapping" data-reveal data-rdg="3">
+    <h2>7. Tool-to-module mapping</h2>
+    <p>When you know the vulnerability class, you know the tool. Use this table to pick the right weapon before you start clicking.</p>
+    <ul>
+      <li><strong>SQLi:</strong> sqlmap, Burp Repeater</li>
+      <li><strong>XSS:</strong> Burp Proxy, Burp Repeater, Burp Decoder</li>
+      <li><strong>IDOR:</strong> Burp Repeater, Burp Comparer</li>
+      <li><strong>Auth (login, sessions, brute force):</strong> Burp Proxy, Burp Repeater, Burp Intruder (Sniper)</li>
+      <li><strong>SSRF:</strong> Burp Repeater</li>
+      <li><strong>File upload:</strong> Burp Proxy, Burp Repeater</li>
+      <li><strong>JWT:</strong> Burp Decoder, Burp Repeater</li>
+      <li><strong>LFI:</strong> Burp Repeater, ffuf</li>
+      <li><strong>Command injection:</strong> Burp Repeater</li>
+      <li><strong>CSRF:</strong> Burp Proxy</li>
+      <li><strong>XXE:</strong> Burp Repeater, Burp Decoder</li>
+      <li><strong>Crypto:</strong> Burp Decoder</li>
+      <li><strong>Race conditions:</strong> Burp Intruder (Sniper, single-packet style)</li>
+      <li><strong>Directory discovery:</strong> ffuf, gobuster, dirsearch</li>
+      <li><strong>Recon:</strong> nmap, Nikto, Sublist3r, amass</li>
+    </ul>
+    <p>The pattern is simple: Burp Repeater appears almost everywhere because most challenges are won by crafting and replaying HTTP requests by hand. The CLI tools are specialists you call in for their one job.</p>
+  </section>
+
+  <section class="card" id="methodology" data-reveal data-rdg="1">
+    <h2>8. Bug hunting methodology</h2>
+    <p>Tools without a method are just noise. Every challenge, from the easiest to the nastiest kill chain, follows the same five phases in the same order:</p>
+    <ol>
+      <li><strong>Recon:</strong> learn what you are looking at. Map open ports with nmap, note the tech stack from headers and error pages, and enumerate subdomains and paths where relevant. Do not attack yet. Understand first.</li>
+      <li><strong>Mapping:</strong> click through the application with Burp's proxy on and intercept off. Build the site map: every page, every form, every parameter, every API endpoint. Write down where user input goes in and where output comes out.</li>
+      <li><strong>Testing:</strong> pick one input point and one vulnerability class from the mapping table above. Send it to Repeater, change one thing at a time, and watch the responses. Narrow and deep beats wide and shallow: finish testing one parameter before moving to the next.</li>
+      <li><strong>Exploiting:</strong> once a test shows strange behavior, turn it into a reliable exploit. Confirm it twice, then capture the flag the way the challenge asks (most award automatically; beacon challenges need the token sent back, see the Docs page).</li>
+      <li><strong>Documenting:</strong> write down what you did while it is fresh: the vulnerable request, the exact change that worked, and why. This becomes your break-then-fix patch notes and your future cheat sheet.</li>
+    </ol>
+    <div class="warning">
+      <p><strong>Order of operations matters.</strong> Recon before mapping, mapping before testing, testing before exploiting. Skipping ahead to exploitation with no map is the number one reason beginners get stuck: they fuzz blindly instead of understanding the one request that matters.</p>
+    </div>
+    <p>When you are stuck, go back one phase. Stuck exploiting? Your testing was too shallow. Stuck testing? Your map is incomplete. The answer is almost always in the previous step, not in a new tool.</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><strong>PenTrix VulnLab is intentionally vulnerable. Run it only on your own machine.</strong></p>
+    <nav aria-label="Footer navigation">
+      <a href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">GitHub repo</a>
+      <a href="install.html">Install guide</a>
+      <a href="docs.html">Docs</a>
+      <a href="tools.html">Tools</a>
+    </nav>
+    <p class="credit">Built by Muhammad Izaz Haider (<a href="https://github.com/mizazhaider-ceh" target="_blank" rel="noopener">@mizazhaider-ceh</a>) &middot; <a href="https://www.linkedin.com/in/muhammad-izaz-haider-091639314/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://www.mizazhaider-ceh.dev/" target="_blank" rel="noopener">Portfolio</a></p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
