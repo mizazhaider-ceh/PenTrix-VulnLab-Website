@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module Catalog: 29 Modules, 201 Challenges - PenTrix VulnLab</title>
+<meta name="description" content="The PenTrix VulnLab module catalog: 29 small vulnerable app areas, 201 challenges, across four tracks: Foundations, Injection, Auth and Sessions, and Advanced. Every flag is earned by real exploitation.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+  .pill-difficulty{color:#047857}
+  .pill-intermediate{color:#b45309}
+  .pill-advanced{color:#9d174d}
+  .track-head{margin-bottom:0}
+</style>
+<link rel="canonical" href="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/modules.html">
+<meta name="theme-color" content="#7C3AED">
+<meta property="og:title" content="Module Catalog: 29 Modules, 201 Challenges - PenTrix VulnLab">
+<meta property="og:description" content="The PenTrix VulnLab module catalog: 29 small vulnerable app areas, 201 challenges, across four tracks: Foundations, Injection, Auth and Sessions, and Advanced. Every flag is earned by real exploitation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/modules.html">
+<meta property="og:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PenTrix VulnLab module catalog: 29 modules, 201 challenges">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Module Catalog: 29 Modules, 201 Challenges - PenTrix VulnLab">
+<meta name="twitter:description" content="The PenTrix VulnLab module catalog: 29 small vulnerable app areas, 201 challenges, across four tracks: Foundations, Injection, Auth and Sessions, and Advanced. Every flag is earned by real exploitation.">
+<meta name="twitter:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="orb" aria-hidden="true"></span>
+      <span>PenTrix VulnLab</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="install.html">Install</a>
+      <a href="quickstart.html">Quick Start</a>
+      <a href="docs.html">Docs</a>
+      <a href="tools.html">Tools</a>
+      <a href="modules.html" aria-current="page">Modules</a>
+      <a class="clay-btn clay-btn-sm" href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blobs" aria-hidden="true"><span class="blob-1"></span><span class="blob-2"></span><span class="blob-3"></span></div>
+
+<main class="wrap">
+  <section class="hero">
+    <h1 data-hero="1">29 Modules, 201 Challenges</h1>
+    <p class="tagline" data-hero="2">The lab is a small town of vulnerable web apps, and each module is one neighborhood. Every module focuses on one bug family, every challenge is a real page you poke at with real tools, and every flag is earned by real exploitation: nothing here is given away by reading the source.</p>
+    <div class="stats" data-hero="3">
+      <div class="stat"><strong>29</strong><span>modules</span></div>
+      <div class="stat"><strong>201</strong><span>challenges</span></div>
+      <div class="stat"><strong>4</strong><span>tracks</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="foundations" data-reveal data-rdg="0">
+    <h2 class="track-head">Foundations</h2>
+    <p class="tagline">Start here: the core web flaw families every tester meets first, in small, forgiving challenges.</p>
+    <div class="grid">
+      <article class="clay-card" id="module-csrf" data-reveal data-rdg="0">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>CSRF &amp; Clickjacking</h3></div>
+        <p>Forge cross-site requests against tokenless state-changing endpoints, sneak JSON requests past naive checks, and frame pages missing frame protection.</p>
+        <div class="card-foot"><span class="badge-new">5 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
+      </article>
+      <article class="clay-card" id="module-formula" data-reveal data-rdg="1">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>CSV Formula Injection</h3></div>
+        <p>Poison a contact export so spreadsheet apps run your cells: classic formulas, DDE commands, hyperlinks, and pipe-prefixed LibreOffice payloads.</p>
+        <div class="card-foot"><span class="badge-new">4 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
+      </article>
+      <article class="clay-card" id="module-http" data-reveal data-rdg="2">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>HTTP Layer Flaws</h3></div>
+        <p>Work directly with raw HTTP behavior: forge log lines through header injection, swap request verbs, and trick a cache key into serving the wrong user.</p>
+        <div class="card-foot"><span class="badge-new">3 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
+      </article>
+      <article class="clay-card" id="module-idor" data-reveal data-rdg="3">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Broken Access Control</h3></div>
+        <p>Act as a regular user who reaches other people's data by changing ids, visiting hidden admin pages, and touching functions the app never guarded.</p>
+        <div class="card-foot"><span class="badge-new">7 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
+      </article>
+      <article class="clay-card" id="module-misconfig" data-reveal data-rdg="4">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Security Misconfiguration</h3></div>
+        <p>Survey a carelessly deployed app: read debug errors, exposed backups, .env and .git, directory listings, default credentials, and open upload endpoints.</p>
+        <div class="card-foot"><span class="badge-new">10 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
+      </article>
+      <article class="clay-card" id="module-redirect" data-reveal data-rdg="5">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Open Redirect</h3></div>
+        <p>Trace unvalidated redirect parameters across five labs, probing allowlist tricks, odd schemes, and duplicate parameters that steer users to attacker pages.</p>
+        <div class="card-foot"><span class="badge-new">5 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
+      </article>
+      <article class="clay-card" id="module-xss" data-reveal data-rdg="6">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Cross-Site Scripting</h3></div>
+        <p>Hunt nine cross-site scripting flaws across reflected, stored, and DOM flavors, learning where browsers will happily run your injected script.</p>
+        <div class="card-foot"><span class="badge-new">9 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="card" id="injection" data-reveal data-rdg="1">
+    <h2 class="track-head">Injection</h2>
+    <p class="tagline">Where untrusted input becomes the attacker's weapon, across code, queries, files, and templates.</p>
+    <div class="grid">
+      <article class="clay-card" id="module-cmdi" data-reveal data-rdg="0">
+        <div class="card-top"><span class="orb orb-amber" aria-hidden="true"></span><h3>Command Injection</h3></div>
+        <p>Smuggle shell commands through a ping gadget, starting with no filtering and then beating naive blacklists one bypass trick at a time.</p>
+        <div class="card-foot"><span class="badge-new">9 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-csti" data-reveal data-rdg="1">
+        <div class="card-top"><span class="orb orb-amber" aria-hidden="true"></span><h3>Client-Side Template Injection</h3></div>
+        <p>Exploit a client-side template interpolator: evaluate expressions, dodge delimiter filters, break out to code, and plant a stored template.</p>
+        <div class="card-foot"><span class="badge-new">5 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-lfi" data-reveal data-rdg="2">
+        <div class="card-top"><span class="orb orb-amber" aria-hidden="true"></span><h3>Path Traversal / LFI</h3></div>
+        <p>Escape a document viewer through path tricks: raw traversal, encoding and nesting bypasses, then poison logs to turn a read into execution.</p>
+        <div class="card-foot"><span class="badge-new">9 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-sqli" data-reveal data-rdg="3">
+        <div class="card-top"><span class="orb orb-amber" aria-hidden="true"></span><h3>SQL Injection</h3></div>
+        <p>Work through eleven classic database injection challenges, from simple login tricks to blind and error-based techniques against a product catalog.</p>
+        <div class="card-foot"><span class="badge-new">11 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-ssti" data-reveal data-rdg="4">
+        <div class="card-top"><span class="orb orb-amber" aria-hidden="true"></span><h3>Server-Side Template Injection</h3></div>
+        <p>Start with simple template math in a greeting card, then defeat filter after filter to reach a real remote code execution challenge.</p>
+        <div class="card-foot"><span class="badge-new">9 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-upload" data-reveal data-rdg="5">
+        <div class="card-top"><span class="orb orb-amber" aria-hidden="true"></span><h3>Unrestricted File Upload</h3></div>
+        <p>Abuse eight file upload features, bypassing naive filename checks, header rules, and path handling to turn innocent uploads into active threats.</p>
+        <div class="card-foot"><span class="badge-new">8 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-xxe" data-reveal data-rdg="6">
+        <div class="card-top"><span class="orb orb-amber" aria-hidden="true"></span><h3>XXE Injection</h3></div>
+        <p>Feed eight XML-based features malicious documents, exploring file reads, external data leaks, and entity tricks that cripple a naive parser.</p>
+        <div class="card-foot"><span class="badge-new">8 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="card" id="auth-sessions" data-reveal data-rdg="2">
+    <h2 class="track-head">Auth and Sessions</h2>
+    <p class="tagline">Identity is the prize: logins, tokens, and session state, and every way they can break.</p>
+    <div class="grid">
+      <article class="clay-card" id="module-auth" data-reveal data-rdg="0">
+        <div class="card-top"><span class="orb orb-sky" aria-hidden="true"></span><h3>Broken Authentication</h3></div>
+        <p>Attack broken logins: brute-force an endless login page, predict reset tokens, guess short OTPs, trick security questions, and spot enumerable usernames.</p>
+        <div class="card-foot"><span class="badge-new">8 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-cors" data-reveal data-rdg="1">
+        <div class="card-top"><span class="orb orb-sky" aria-hidden="true"></span><h3>CORS Misconfiguration</h3></div>
+        <p>Test broken cross-origin policies: reflected origins with credentials, trusted null origins, bypassed allowlists, and wildcards on sensitive data.</p>
+        <div class="card-foot"><span class="badge-new">6 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-hostheader" data-reveal data-rdg="2">
+        <div class="card-top"><span class="orb orb-sky" aria-hidden="true"></span><h3>Host Header Injection</h3></div>
+        <p>Poison Host and forwarded-host headers to hijack password resets, poison caches, bend server-side fetches, and abuse host-built URLs.</p>
+        <div class="card-foot"><span class="badge-new">5 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-jwt" data-reveal data-rdg="3">
+        <div class="card-top"><span class="orb orb-sky" aria-hidden="true"></span><h3>JWT Attacks</h3></div>
+        <p>Forge admin tokens against broken verifiers by exploiting none-alg, weak secrets, algorithm confusion, missing expiry checks, and untrusted key sources.</p>
+        <div class="card-foot"><span class="badge-new">8 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-oauth" data-reveal data-rdg="4">
+        <div class="card-top"><span class="orb orb-sky" aria-hidden="true"></span><h3>OAuth Flaws</h3></div>
+        <p>Break a miniature OAuth deployment: bypass redirect URI checks, replay codes, tamper scopes, and abuse leaked client secrets to impersonate users.</p>
+        <div class="card-foot"><span class="badge-new">8 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-session" data-reveal data-rdg="5">
+        <div class="card-top"><span class="orb orb-sky" aria-hidden="true"></span><h3>Session Management</h3></div>
+        <p>Attack six broken login-state mechanics, from fixed and predictable session ids to logouts and timeouts that fail to protect accounts.</p>
+        <div class="card-foot"><span class="badge-new">6 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="card" id="advanced" data-reveal data-rdg="3">
+    <h2 class="track-head">Advanced</h2>
+    <p class="tagline">Harder game for practiced hands: protocols, crypto, concurrency, and chaining primitives into real attacks.</p>
+    <div class="grid">
+      <article class="clay-card" id="module-api" data-reveal data-rdg="0">
+        <div class="card-top"><span class="orb orb-emerald" aria-hidden="true"></span><h3>API Security Flaws</h3></div>
+        <p>Poke a JSON API for classic mistakes: writable profile fields, a user list leaking database rows, brute-forcible logins, and a v2 endpoint that skips authorization.</p>
+        <div class="card-foot"><span class="badge-new">5 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-bizlogic" data-reveal data-rdg="1">
+        <div class="card-top"><span class="orb orb-emerald" aria-hidden="true"></span><h3>Business Logic Flaws</h3></div>
+        <p>Break a demo shop without any injection: negative quantities that credit your balance, stacked coupons, skipped checkout steps, and tampered refunds.</p>
+        <div class="card-foot"><span class="badge-new">8 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-crypto" data-reveal data-rdg="2">
+        <div class="card-top"><span class="orb orb-emerald" aria-hidden="true"></span><h3>Cryptographic Failures</h3></div>
+        <p>Break real misused cryptography: brute-force a weak PIN, decrypt through an ECB oracle, forge CBC cookies, extend hashes, and crack MD5.</p>
+        <div class="card-foot"><span class="badge-new">8 challenges</span><span class="pill pill-advanced">Advanced</span></div>
+      </article>
+      <article class="clay-card" id="module-jsonp" data-reveal data-rdg="3">
+        <div class="card-top"><span class="orb orb-emerald" aria-hidden="true"></span><h3>JSONP Injection</h3></div>
+        <p>Explore the legacy JSONP pattern by abusing callback reflection, reading sensitive data cross-origin through script tags, and bypassing naive callback filters.</p>
+        <div class="card-foot"><span class="badge-new">5 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-postmsg" data-reveal data-rdg="4">
+        <div class="card-top"><span class="orb orb-emerald" aria-hidden="true"></span><h3>postMessage Flaws</h3></div>
+        <p>Probe postMessage handlers that skip origin checks: send forged messages, exploit wildcard receivers, and trigger privileged actions on victim pages.</p>
+        <div class="card-foot"><span class="badge-new">5 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-proto" data-reveal data-rdg="5">
+        <div class="card-top"><span class="orb orb-emerald" aria-hidden="true"></span><h3>Prototype Pollution</h3></div>
+        <p>Feed magic keys into a naive deep merge through query strings, JSON bodies, and unicode escapes until fresh objects inherit attacker values.</p>
+        <div class="card-foot"><span class="badge-new">6 challenges</span><span class="pill pill-advanced">Advanced</span></div>
+      </article>
+      <article class="clay-card" id="module-race" data-reveal data-rdg="6">
+        <div class="card-top"><span class="orb orb-emerald" aria-hidden="true"></span><h3>Race Conditions</h3></div>
+        <p>Fire parallel requests at check-then-act flaws to double-spend balances, redeem coupons twice, oversell stock, and beat time-based defenses.</p>
+        <div class="card-foot"><span class="badge-new">8 challenges</span><span class="pill pill-advanced">Advanced</span></div>
+      </article>
+      <article class="clay-card" id="module-redos" data-reveal data-rdg="7">
+        <div class="card-top"><span class="orb orb-emerald" aria-hidden="true"></span><h3>ReDoS</h3></div>
+        <p>Study four vulnerable endpoints, find the single input shape that stalls each catastrophic regex, and watch one request starve the server.</p>
+        <div class="card-foot"><span class="badge-new">4 challenges</span><span class="pill pill-intermediate">Intermediate</span></div>
+      </article>
+      <article class="clay-card" id="module-ssrf" data-reveal data-rdg="8">
+        <div class="card-top"><span class="orb orb-emerald" aria-hidden="true"></span><h3>Server-Side Request Forgery</h3></div>
+        <p>Turn nine URL-fetching features into internal network probes, learning how servers can be made to reach targets only they can see.</p>
+        <div class="card-foot"><span class="badge-new">9 challenges</span><span class="pill pill-advanced">Advanced</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="card" id="where-next" data-reveal data-rdg="0">
+    <h2>Where to go next</h2>
+    <p>New to the lab? The <a href="quickstart.html">Quick Start guide</a> walks you through your first flags. Already set up? Start with the Foundations track above, or read the <a href="docs.html">Docs</a> to learn how flags are earned and submitted. The <a href="tools.html">Tools page</a> has the Burp setup and the workflow every challenge rewards.</p>
+    <p><a class="clay-btn clay-btn-primary" href="quickstart.html">Start the Quick Start</a></p>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><strong>PenTrix VulnLab is intentionally vulnerable. Run it only on your own machine.</strong></p>
+    <nav aria-label="Footer navigation">
+      <a href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">GitHub repo</a>
+      <a href="install.html">Install guide</a>
+      <a href="docs.html">Docs</a>
+      <a href="tools.html">Tools</a>
+      <a href="modules.html">Modules</a>
+    </nav>
+    <p class="credit">Built by Muhammad Izaz Haider (<a href="https://github.com/mizazhaider-ceh" target="_blank" rel="noopener">@mizazhaider-ceh</a>) &middot; <a href="https://www.linkedin.com/in/muhammad-izaz-haider-091639314/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://www.mizazhaider-ceh.dev/" target="_blank" rel="noopener">Portfolio</a></p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
