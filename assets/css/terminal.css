@@ -1,0 +1,127 @@
+/* ============================================================
+   PenTrix VulnLab: terminal.css
+   Animated SIMULATED terminal demo widget (terminal.js).
+   Pure front-end, zero network. Clay frame outside, dark
+   inset terminal viewport inside. Light-only, matches the
+   site's claymorphism tokens.
+
+   Bulletproof rules (learned from a real incident):
+   - Hidden states only under html.js. Without JS the static
+     transcript is fully visible; nothing may stay invisible.
+   - NEVER use will-change anywhere on this widget.
+   - Cursor blinks via opacity animation only (no transforms).
+   ============================================================ */
+
+/* ---------- Widget root: clay card frame ---------- */
+.term{
+  background:var(--clay-card,#ffffff);
+  border:1px solid rgba(51,47,58,.07);
+  border-radius:28px;
+  box-shadow:var(--shadow-card,
+    16px 16px 32px rgba(160,150,180,.2),
+    -10px -10px 24px rgba(255,255,255,.9),
+    inset 6px 6px 12px rgba(139,92,246,.03),
+    inset -6px -6px 12px rgba(255,255,255,1));
+  padding:1.25rem;
+  width:100%;
+  max-width:100%;
+}
+
+/* ---------- Terminal title bar ---------- */
+.term-bar{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  padding:.15rem .35rem .95rem;
+}
+.term-bar i{
+  width:.8rem;
+  height:.8rem;
+  border-radius:50%;
+  display:inline-block;
+  box-shadow:inset 1px 1px 2px rgba(255,255,255,.55),inset -1px -1px 2px rgba(0,0,0,.12);
+}
+.term-bar i:nth-child(1){background:#FF5F57}
+.term-bar i:nth-child(2){background:#FEBC2E}
+.term-bar i:nth-child(3){background:#28C840}
+.term-title{
+  margin-left:.35rem;
+  font-family:var(--font-mono,ui-monospace,"Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace);
+  font-size:.82rem;
+  color:var(--clay-muted,#635F69);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* ---------- Simulation note ---------- */
+.term-note{
+  margin:0 0 .8rem;
+  font-size:.82rem;
+  line-height:1.5;
+  color:var(--clay-muted,#635F69);
+}
+.term-note strong{color:var(--clay-violet,#7C3AED)}
+
+/* ---------- Terminal viewport: dark inset ---------- */
+.term-screen{
+  background:#211D28;
+  border-radius:20px;
+  padding:1.1rem 1.25rem;
+  box-shadow:inset 6px 6px 14px rgba(0,0,0,.5),
+             inset -4px -4px 10px rgba(255,255,255,.05),
+             0 1px 0 rgba(255,255,255,.7);
+  overflow-x:auto;              /* horizontal scroll inside the screen, never page overflow */
+  -webkit-overflow-scrolling:touch;
+}
+.term-screen pre{
+  margin:0;
+  font-family:var(--font-mono,ui-monospace,"Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace);
+  font-size:.875rem;
+  line-height:1.7;
+  color:#EDEAF4;
+  white-space:pre;              /* keep transcript lines intact, scroll if narrow */
+}
+
+/* Static transcript is the default, visible state (no-JS safe). */
+.term-static{display:block}
+
+/* The live typing layer only appears once JS starts typing,
+   and only when the html.js gate is present. */
+html.js .term .term-live{display:none}
+html.js .term.is-typing .term-live{display:block}
+html.js .term.is-typing .term-static{display:none}
+
+/* ---------- Live typing colors ---------- */
+.term-live .l-cmd{color:#FCD34D}   /* typed command line: amber */
+.term-live .l-info{color:#7DD3FC} /* [*] info lines: sky */
+.term-live .l-ok{color:#34D399}   /* [+] success lines: green */
+
+/* Blinking block cursor: opacity only, no transform, no will-change. */
+.term-cursor{
+  display:inline-block;
+  width:.62em;
+  height:1.12em;
+  background:#34D399;
+  border-radius:2px;
+  vertical-align:-.16em;
+  animation:term-blink 1.06s steps(2,start) infinite;
+}
+@keyframes term-blink{to{opacity:0}}
+
+/* ---------- Replay button ---------- */
+.term .term-replay{margin-top:1rem}
+.term .term-replay:focus-visible{
+  outline:3px solid rgba(124,58,237,.55);
+  outline-offset:3px;
+}
+
+/* ---------- Responsive: full width on mobile ---------- */
+@media (max-width:560px){
+  .term{padding:1rem;border-radius:24px}
+  .term-screen{padding:.9rem 1rem}
+  .term-screen pre{font-size:.8rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .term-cursor{animation:none}
+}

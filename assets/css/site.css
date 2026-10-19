@@ -555,3 +555,83 @@ details[open] .faq-body{grid-template-rows:1fr}
   border-color:transparent;
   transform:scale(1.1);
 }
+
+/* ================= EXTRA VISUAL POLISH PASS (appended 2026-10-19) =================
+   Append only. Nothing above this line was touched. */
+
+/* ---------- 1. Section divider flourish (.hr-fancy) ----------
+   A clay horizontal rule: 6px tall, fully rounded, soft violet gradient bar
+   with layered soft shadows. Decorative only, centered, for future use. */
+.hr-fancy{
+  height:6px;
+  max-width:220px;
+  margin:2.5rem auto;
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(90deg, #A78BFA, #7C3AED);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.55),
+    inset 0 -1px 2px rgba(51,47,58,.18),
+    0 4px 8px rgba(124,58,237,.22),
+    0 1px 2px rgba(51,47,58,.12);
+}
+
+/* ---------- 2. Improved :focus-visible states ----------
+   Consistent, clearly visible focus ring in the clay language: 3px solid
+   violet outline, 3px offset, 12px radius. Never the default thin outline. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible{
+  outline:3px solid #7C3AED;
+  outline-offset:3px;
+  border-radius:12px;
+}
+
+/* ---------- 3. Text selection: violet background, white text ---------- */
+::selection{
+  background:#7C3AED;
+  color:#fff;
+}
+
+/* ---------- 4. Subtle scrollbars ----------
+   Webkit: thin 10px scrollbar, transparent track, soft lavender-gray thumb
+   with 8px radius and a lighter border, darker on hover.
+   Firefox: thin scrollbar with matching colors. */
+html{
+  scrollbar-width:thin;
+  scrollbar-color:#C9BFE0 transparent;
+}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{
+  background:#C9BFE0;
+  border-radius:8px;
+  border:2px solid #F4F1FA;
+}
+::-webkit-scrollbar-thumb:hover{background:#B4A6D6}
+
+/* ---------- 5. Print stylesheet basics ----------
+   Hide decorative and interactive chrome, force ink on white, expand
+   collapsed FAQ content, keep cards whole, underline links. */
+@media print{
+  .blobs,
+  .topbar,
+  .foot,
+  .copy-btn,
+  .term-replay,
+  .replay-btn{display:none !important}
+  html,body{
+    background:#fff !important;
+    color:#332F3A;
+  }
+  /* Mirror the existing FAQ open mechanic so answers print expanded */
+  details .faq-body{grid-template-rows:1fr}
+  .clay-card{break-inside:avoid}
+  figure.clay-card{break-inside:avoid;page-break-inside:avoid}
+  /* background-clip:text does not survive print: fall back to solid color */
+  .step::before{background:none;color:var(--clay-violet)}
+  a{text-decoration:underline}
+}

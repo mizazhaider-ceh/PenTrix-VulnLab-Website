@@ -10,6 +10,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/">
+<meta name="theme-color" content="#7C3AED">
+<meta property="og:title" content="Page not found | PenTrix VulnLab">
+<meta property="og:description" content="This page does not exist on the PenTrix VulnLab website.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/">
+<meta property="og:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PenTrix VulnLab: learn web security by breaking real websites">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Page not found | PenTrix VulnLab">
+<meta name="twitter:description" content="This page does not exist on the PenTrix VulnLab website.">
+<meta name="twitter:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
 <style>
   .not-found-card { text-align: center; padding: 3rem 2rem; }
   .not-found-code {
@@ -24,6 +39,9 @@
     margin: 0 0 1rem;
   }
   .not-found-card .cta-row { justify-content: center; margin-top: 2rem; }
+  @media print{
+    .not-found-code{ background:none; color:#7C3AED; }
+  }
 </style>
 </head>
 <body>
@@ -55,11 +73,13 @@
     <article class="clay-card not-found-card">
       <p class="not-found-code" data-hero="1" aria-hidden="true">404</p>
       <h1>Lost in the lab?</h1>
-      <p class="tagline" data-hero="2">This page does not exist. The vulnerabilities are elsewhere.</p>
+      <p class="tagline" data-hero="2">This page does not exist. Even our 404 page has no vulnerabilities. We checked twice.</p>
       <div class="cta-row">
         <a class="clay-btn clay-btn-primary" data-hero="3" href="index.html">Back home</a>
         <a class="clay-btn clay-btn-secondary" href="install.html">Install the lab</a>
       </div>
+      <pre><code>$ find / -name "that-page"
+# 0 results. Try the lab.</code></pre>
     </article>
   </section>
 </main>

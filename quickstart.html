@@ -10,6 +10,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/terminal.css">
+<link rel="canonical" href="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/quickstart.html">
+<meta name="theme-color" content="#7C3AED">
+<meta property="og:title" content="Quick Start: Your First Flag in 5 Minutes | PenTrix VulnLab">
+<meta property="og:description" content="Capture your first PENTRIX flag in five minutes: open the SQL Injection module, bypass the login, and see your scoreboard go to 1/201.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/quickstart.html">
+<meta property="og:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PenTrix VulnLab quick start: capture your first flag in five minutes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quick Start: Your First Flag in 5 Minutes | PenTrix VulnLab">
+<meta name="twitter:description" content="Capture your first PENTRIX flag in five minutes: open the SQL Injection module, bypass the login, and see your scoreboard go to 1/201.">
+<meta name="twitter:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
 </head>
 <body>
 <div class="blobs" aria-hidden="true"><span class="blob-1"></span><span class="blob-2"></span><span class="blob-3"></span></div>
@@ -82,6 +97,8 @@
         <figcaption>Flag captured: your per-install PENTRIX flag appears.</figcaption>
       </figure>
       </li>
+
+
       <li class="step" data-reveal data-rdg="2">
         <h2>Check your scoreboard</h2>
         <p>Open the <strong>Scoreboard</strong> from the nav. It reads <strong>1/201</strong>: one challenge solved, 200 to go. Shortcuts earn nothing here (bare beacons and token replays get a 400), so that 1 only appears because you did a genuine exploit.</p>
@@ -91,6 +108,30 @@
       </figure>
       </li>
     </ol>
+
+<!-- Simulated terminal demo (full) -->
+<section class="wrap" aria-labelledby="demo-h">
+  <h2 id="demo-h">Watch the login bypass, simulated</h2>
+  <div class="term" data-reveal data-term="full">
+    <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">pentrix@demo: ~/simulated</span></div>
+    <p class="term-note"><strong>Simulated demo.</strong> No real system, every keystroke is scripted.</p>
+    <div class="term-screen">
+      <pre class="term-static">$ ./pentrix-demo --target login-bypass
+[*] SIMULATION: no real system involved
+POST /api/login -> 200 OK (18 ms)
+[*] payload echo: admin' --  (the trailing space is part of it)
+[+] typing username: admin' -- 
+[+] typing password: ********
+[*] built query: SELECT * FROM users WHERE username = 'admin' -- ' ...
+[*] server: comment swallowed the password check
+[+] server: 200 OK, welcome back, admin
+[+] flag captured: PENTRIX{DEMO-SIMULATED-FLAG}
+[*] scoreboard: 1/201</pre>
+      <pre class="term-live" aria-hidden="true"></pre>
+    </div>
+    <button class="term-replay clay-btn clay-btn-secondary" type="button">Replay demo</button>
+  </div>
+</section>
 
     <aside class="warning" data-reveal data-rdg="3">
       <strong>Troubleshooting tip.</strong> If the exploit fails, the most common cause is the payload. The trailing space after <code>--</code> matters, it is part of the SQL comment syntax. Retype <kbd>admin' -- </kbd> carefully, with the space at the end, and try again.
@@ -132,5 +173,6 @@
   </div>
 </footer>
 <script src="assets/js/site.js" defer></script>
+<script src="assets/js/terminal.js" defer></script>
 </body>
 </html>

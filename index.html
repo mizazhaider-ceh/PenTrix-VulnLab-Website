@@ -10,6 +10,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/terminal.css">
+<link rel="canonical" href="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/index.html">
+<meta name="theme-color" content="#7C3AED">
+<meta property="og:title" content="PenTrix VulnLab: Learn Web Security by Breaking Real Websites">
+<meta property="og:description" content="PenTrix VulnLab is an intentionally vulnerable lab with 201 hands-on web security challenges across 29 modules. Every flag is earned by real exploitation, nothing leaks from source.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/index.html">
+<meta property="og:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PenTrix VulnLab: learn web security by breaking real websites">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PenTrix VulnLab: Learn Web Security by Breaking Real Websites">
+<meta name="twitter:description" content="PenTrix VulnLab is an intentionally vulnerable lab with 201 hands-on web security challenges across 29 modules. Every flag is earned by real exploitation, nothing leaks from source.">
+<meta name="twitter:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
 </head>
 <body>
 
@@ -53,6 +68,24 @@
       </div>
     </div>
   </section>
+<!-- Simulated terminal demo (compact) -->
+<section class="wrap" aria-labelledby="demo-h">
+  <h2 id="demo-h">See the first flag fall, simulated</h2>
+  <div class="term" data-reveal data-term="compact">
+    <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">pentrix@demo: ~/simulated</span></div>
+    <p class="term-note"><strong>Simulated demo.</strong> No real system, every keystroke is scripted.</p>
+    <div class="term-screen">
+      <pre class="term-static">$ ./pentrix-demo --target login-bypass
+[*] SIMULATION: no real system involved
+[+] typing username: admin' -- 
+[+] typing password: ********
+[+] server: 200 OK, welcome back, admin
+[+] flag captured: PENTRIX{DEMO-SIMULATED-FLAG}</pre>
+      <pre class="term-live" aria-hidden="true"></pre>
+    </div>
+    <button class="term-replay clay-btn clay-btn-secondary" type="button">Replay demo</button>
+  </div>
+</section>
 
   <section class="wrap" id="features" aria-labelledby="features-h">
     <h2 id="features-h" data-reveal>Everything a web pentest lab should be</h2>
@@ -168,5 +201,6 @@
 </footer>
 
 <script src="assets/js/site.js" defer></script>
+<script src="assets/js/terminal.js" defer></script>
 </body>
 </html>
