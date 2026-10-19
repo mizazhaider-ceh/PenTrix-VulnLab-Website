@@ -178,19 +178,35 @@
     }
   }
 
-  /* 4. Scroll reveals: [data-reveal] enters view with stagger via data-rdg */
+  /* 4. Scroll + hero reveals: [data-reveal] and [data-hero] enter with
+     transition + .in class. Hero stagger comes from CSS [data-hero="N"]
+     rules, so never set inline transitionDelay on hero elements.
+     A 2s safety net force-reveals everything so nothing can stay
+     invisible even if IntersectionObserver never fires. */
   function reveals() {
-    var els = document.querySelectorAll("[data-reveal]");
+    var els = document.querySelectorAll("[data-reveal],[data-hero]");
     if (!els.length) return;
     if (reducedMotion || !("IntersectionObserver" in window)) {
       for (var i = 0; i < els.length; i++) els[i].classList.add("in");
       return;
     }
+    /* Safety net FIRST: force-reveal everything after 2s so content can
+       never stay invisible, even if the observer setup below throws.
+       The observer still gives scroll animations to fast scrollers;
+       this is the guarantee underneath it. */
+    setTimeout(function () {
+      try {
+        var all = document.querySelectorAll("[data-hero],[data-reveal]");
+        for (var k = 0; k < all.length; k++) all[k].classList.add("in");
+      } catch (e) {}
+    }, 2000);
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         var el = e.target;
-        el.style.transitionDelay = (Math.min(el.dataset.rdg || 0, 5) * 70) + "ms";
+        if (!el.hasAttribute("data-hero")) {
+          el.style.transitionDelay = (Math.min(el.dataset.rdg || 0, 5) * 70) + "ms";
+        }
         el.classList.add("in");
         io.unobserve(el);
         el.addEventListener("transitionend", function h() {
