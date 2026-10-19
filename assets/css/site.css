@@ -74,7 +74,7 @@ section[id],h2[id],h3[id]{scroll-margin-top:6rem}
 
 /* ---------- Floating background blobs ---------- */
 .blobs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.blobs span{position:absolute;border-radius:50%;opacity:.55;will-change:transform;animation:blob-float 70s ease-in-out infinite}
+.blobs span{position:absolute;border-radius:50%;opacity:.55;animation:blob-float 70s ease-in-out infinite}
 .blob-1{width:34rem;height:34rem;left:-10rem;top:-8rem;background:radial-gradient(circle at 30% 30%,#c4b5fd 0%,rgba(124,58,237,.45) 45%,rgba(124,58,237,0) 72%);animation-delay:-18s}
 .blob-2{width:28rem;height:28rem;right:-9rem;top:24%;background:radial-gradient(circle at 30% 30%,#f9a8d4 0%,rgba(219,39,119,.45) 45%,rgba(219,39,119,0) 72%);animation-delay:-32s}
 .blob-3{width:26rem;height:26rem;left:14%;bottom:-10rem;background:radial-gradient(circle at 30% 30%,#7dd3fc 0%,rgba(14,165,233,.45) 45%,rgba(14,165,233,0) 72%);animation-delay:-48s}
@@ -235,7 +235,7 @@ main.wrap{padding-top:2.5rem;padding-bottom:4rem}
 .badge-new{
   font-family:var(--font-display);font-weight:800;font-size:.72rem;
   letter-spacing:.08em;text-transform:uppercase;
-  color:#fff;background:linear-gradient(135deg,var(--clay-pink),#f43f5e);
+  color:#fff;background:linear-gradient(135deg,var(--clay-pink),#9d174d);
   padding:.3rem .8rem;border-radius:var(--r-pill);
   box-shadow:4px 4px 10px rgba(219,39,119,.35);
 }
@@ -275,7 +275,7 @@ pre{
 }
 pre code{
   background:none;color:inherit;padding:0;
-  font-size:inherit;white-space:pre;overflow-wrap:normal;
+  font-size:inherit;white-space:pre-wrap;overflow-wrap:break-word;
 }
 /* copy button injected by assets/js/site.js */
 .copy-btn{
@@ -634,6 +634,10 @@ html{
   /* background-clip:text does not survive print: fall back to solid color */
   .step::before{background:none;color:var(--clay-violet)}
   a{text-decoration:underline}
+  /* Print ignores overflow-x:auto, so the terminal transcript would hard-clip.
+     Print-only override: let the screen expand and wrap lines instead of clipping. */
+  .term-screen{overflow:visible}
+  .term-screen pre{white-space:pre-wrap;overflow-wrap:break-word}
 }
 
 /* Projects + author band (projects page) */

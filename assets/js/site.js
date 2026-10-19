@@ -6,10 +6,10 @@
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function init() {
-    document.documentElement.classList.add("js");
-    copyButtons();
-    navHighlight();
-    smoothScroll();
+    try { document.documentElement.classList.add("js"); } catch (e) {}
+    try { copyButtons(); } catch (e) {}
+    try { navHighlight(); } catch (e) {}
+    try { smoothScroll(); } catch (e) {}
     try { reveals(); } catch (e) {}
     try { countUps(); } catch (e) {}
     try { navScroll(); } catch (e) {}
