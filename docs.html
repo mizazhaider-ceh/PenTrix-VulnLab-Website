@@ -6,6 +6,8 @@
 <title>How PenTrix works - PenTrix VulnLab Docs</title>
 <meta name="description" content="How PenTrix VulnLab works: random per-install flags, hint ladders, flag claiming, break-then-fix, scenarios, guided paths and certificates.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
@@ -30,9 +32,9 @@
 
 <main class="wrap">
   <section class="hero">
-    <h1>How PenTrix works</h1>
-    <p class="tagline">Everything under the hood: how flags are made, how hints guide you, how flags are claimed, and how you earn certificates. Read this once, then go break things.</p>
-    <div class="stats">
+    <h1 data-hero="1">How PenTrix works</h1>
+    <p class="tagline" data-hero="2">Everything under the hood: how flags are made, how hints guide you, how flags are claimed, and how you earn certificates. Read this once, then go break things.</p>
+    <div class="stats" data-hero="3">
       <div class="stat"><strong>201</strong><span>challenges</span></div>
       <div class="stat"><strong>29</strong><span>modules</span></div>
       <div class="stat"><strong>3</strong><span>kill-chain scenarios</span></div>
@@ -40,7 +42,7 @@
     </div>
   </section>
 
-  <section class="card" id="flags">
+  <section class="card" id="flags" data-reveal data-rdg="0">
     <h2>How flags work</h2>
     <p>Every flag looks like <code>PENTRIX{</code> followed by 32 random hex characters, then <code>}</code>. They are random per install: generated on first boot into a gitignored SQLite database. No flag literal exists in any tracked file, so reading the code on GitHub reveals nothing.</p>
     <p>That means flags cannot be leaked, copied from a write-up, or pasted from someone else's install. The only way to capture a flag is to exploit the vulnerability the way an attacker would.</p>
@@ -49,7 +51,7 @@
     </div>
   </section>
 
-  <section class="card" id="hints">
+  <section class="card" id="hints" data-reveal data-rdg="1">
     <h2>Hint ladders</h2>
     <p>Stuck is part of learning, so every challenge has a 3-level hint ladder:</p>
     <ol>
@@ -60,7 +62,7 @@
     <p>Full walkthroughs live in <code>SOLUTIONS.md</code> in the repo. They teach technique, never flags: the flags are random per install, so a walkthrough cannot hand you one.</p>
   </section>
 
-  <section class="card" id="claiming">
+  <section class="card" id="claiming" data-reveal data-rdg="2">
     <h2>Claiming flags</h2>
     <p>Most flags award automatically the moment you genuinely exploit the vulnerability. The lab checks that the exploit really happened, not that you faked the response.</p>
     <p>For XSS-style beacon challenges, there is one catch: the server cannot see your screen. So your payload must send the page-token beacon back to the lab. Every such page has a <strong>"How to claim this flag"</strong> box explaining exactly how.</p>
@@ -69,13 +71,13 @@
     </div>
   </section>
 
-  <section class="card" id="break-then-fix">
+  <section class="card" id="break-then-fix" data-reveal data-rdg="3">
     <h2>Break-then-fix</h2>
     <p>Attackers find bugs. Engineers fix them. PenTrix makes you do both.</p>
     <p>After you capture a flag, you can open the vulnerable code and patch it yourself. The lab then re-runs the <em>original exploit</em> against your fix in an isolated sandbox. If the exploit fails <strong>and</strong> the app still works, you earn a <strong>fix badge</strong> on that challenge.</p>
   </section>
 
-  <section class="card" id="scenarios">
+  <section class="card" id="scenarios" data-reveal data-rdg="0">
     <h2>Scenarios</h2>
     <p>Visit <code>/scenarios</code> for three story-driven kill chains:</p>
     <ul>
@@ -86,7 +88,7 @@
     <p>Each scenario stages its challenges so they unlock in order, chaining individual bugs into one full attack story. Finish the chain and you capture the scenario flag at the end.</p>
   </section>
 
-  <section class="card" id="paths">
+  <section class="card" id="paths" data-reveal data-rdg="1">
     <h2>Paths and certificates</h2>
     <p>Visit <code>/paths</code> for three guided career paths:</p>
     <ul>
@@ -96,13 +98,13 @@
     </ul>
     <p>Each path lists its prerequisites, orders the challenges into a curriculum, and tracks your progress as you finish them.</p>
     <figure>
-      <img src="assets/img/shot-certificate.png" alt="Sample PenTrix path certificate showing the path name, student name, date, and verification code" width="1200" height="848">
+      <img src="assets/img/shot-certificate.png" alt="Sample PenTrix path certificate showing the path name, student name, date, and verification code" width="1200" height="850" loading="lazy" decoding="async">
       <figcaption>A certificate for the Zero to Web Pentester path (demo values shown).</figcaption>
     </figure>
     <p>Finish a path and you earn a PNG certificate. It carries a verification code like <code>PTX-XXXXXXXX</code> that is bound to your install, and anyone can check it on the path's <code>/verify</code> page.</p>
   </section>
 
-  <section class="card" id="resetting">
+  <section class="card" id="resetting" data-reveal data-rdg="2">
     <h2>Resetting</h2>
     <p>To reset everything (fresh flags and clean progress):</p>
     <pre><code>rm -rf ./data</code></pre>
@@ -111,37 +113,49 @@
     <pre><code>docker compose down -v</code></pre>
   </section>
 
-  <section class="card" id="faq">
+  <section class="card" id="faq" data-reveal data-rdg="3">
     <h2>FAQ</h2>
 
-    <details>
+    <details data-reveal data-rdg="0">
       <summary>Is it safe to run?</summary>
+      <div class="faq-body"><div>
       <p>Yes. The lab runs localhost-only and never touches the internet. The container drops Linux capabilities and is limited to 512M of memory and 1 CPU. Keep it off shared networks and run it only on your own machine.</p>
+      </div></div>
     </details>
 
-    <details>
+    <details data-reveal data-rdg="1">
       <summary>Can I deploy it publicly?</summary>
+      <div class="faq-body"><div>
       <p>No, never. PenTrix is intentionally vulnerable, so putting it on the public internet would hand attackers a working exploit playground on your infrastructure. Run it on your own machine or an isolated lab network only.</p>
+      </div></div>
     </details>
 
-    <details>
+    <details data-reveal data-rdg="2">
       <summary>I solved a challenge but got no flag. Why?</summary>
+      <div class="faq-body"><div>
       <p>The flag only awards for a genuine exploit. If you bypassed the check, faked a response, replayed someone else's token, or the exploit was not real, the lab rejects it (shortcuts earn 400s). Re-run the actual attack and the flag will land.</p>
+      </div></div>
     </details>
 
-    <details>
+    <details data-reveal data-rdg="0">
       <summary>Do I need Burp Suite?</summary>
+      <div class="faq-body"><div>
       <p>No. A browser and <code>curl</code> are enough for everything in the lab.</p>
+      </div></div>
     </details>
 
-    <details>
+    <details data-reveal data-rdg="1">
       <summary>Where do I start as a beginner?</summary>
+      <div class="faq-body"><div>
       <p>Start with the <strong>Zero to Web Pentester</strong> path. It assumes nothing and teaches the fundamentals in order, ending with a certificate.</p>
+      </div></div>
     </details>
 
-    <details>
+    <details data-reveal data-rdg="2">
       <summary>Can I add my own challenges?</summary>
+      <div class="faq-body"><div>
       <p>Yes. Follow the module contract (<code>MODULE_CONTRACT.md</code> in the repo): one file per challenge under <code>modules/&lt;id&gt;/challenges/</code>, and it auto-mounts with hints, flags, and scoring. Until the simple challenge-builder format lands, pull requests with new challenge ideas are welcome.</p>
+      </div></div>
     </details>
   </section>
 </main>

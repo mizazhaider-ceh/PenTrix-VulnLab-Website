@@ -26,6 +26,8 @@
   --r-med:24px;
   --r-btn:20px;
   --r-pill:999px;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
   /* exact shadow stacks from the brief */
   --shadow-card:16px 16px 32px rgba(160,150,180,.2),-10px -10px 24px rgba(255,255,255,.9),inset 6px 6px 12px rgba(139,92,246,.03),inset -6px -6px 12px rgba(255,255,255,1);
   --shadow-card-hover:22px 22px 44px rgba(160,150,180,.28),-10px -10px 24px rgba(255,255,255,.9),inset 6px 6px 12px rgba(139,92,246,.03),inset -6px -6px 12px rgba(255,255,255,1);
@@ -72,13 +74,13 @@ section[id],h2[id],h3[id]{scroll-margin-top:6rem}
 
 /* ---------- Floating background blobs ---------- */
 .blobs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.blobs span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:blob-float 14s ease-in-out infinite}
-.blob-1{width:34rem;height:34rem;left:-10rem;top:-8rem;background:radial-gradient(circle at 30% 30%,#c4b5fd,var(--clay-violet))}
-.blob-2{width:28rem;height:28rem;right:-9rem;top:24%;background:radial-gradient(circle at 30% 30%,#f9a8d4,var(--clay-pink));animation-delay:-5s}
-.blob-3{width:26rem;height:26rem;left:14%;bottom:-10rem;background:radial-gradient(circle at 30% 30%,#7dd3fc,var(--clay-sky));animation-delay:-9s}
+.blobs span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:blob-float 70s ease-in-out infinite}
+.blob-1{width:34rem;height:34rem;left:-10rem;top:-8rem;background:radial-gradient(circle at 30% 30%,#c4b5fd,var(--clay-violet));animation-delay:-18s}
+.blob-2{width:28rem;height:28rem;right:-9rem;top:24%;background:radial-gradient(circle at 30% 30%,#f9a8d4,var(--clay-pink));animation-delay:-32s}
+.blob-3{width:26rem;height:26rem;left:14%;bottom:-10rem;background:radial-gradient(circle at 30% 30%,#7dd3fc,var(--clay-sky));animation-delay:-48s}
 @keyframes blob-float{
   0%,100%{transform:translate(0,0) scale(1)}
-  50%{transform:translate(2.5rem,-2rem) scale(1.08)}
+  50%{transform:translate(1.5rem,-1.25rem) scale(1.05)}
 }
 
 /* ---------- Content wrap ---------- */
@@ -94,6 +96,14 @@ main.wrap{padding-top:2.5rem;padding-bottom:4rem}
   -webkit-backdrop-filter:blur(16px) saturate(1.5);
   backdrop-filter:blur(16px) saturate(1.5);
   border-bottom:1px solid var(--hairline);
+  transition:background .3s ease,box-shadow .3s ease;
+}
+/* nav scrolled state (JS toggles .scrolled on scroll) */
+.topbar.scrolled{
+  background:rgba(255,255,255,.88);
+  box-shadow:0 12px 32px rgba(124,58,237,.14);
+  -webkit-backdrop-filter:blur(20px) saturate(1.5);
+  backdrop-filter:blur(20px) saturate(1.5);
 }
 .topbar-inner{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.7rem 0}
 .brand{
@@ -150,7 +160,7 @@ main.wrap{padding-top:2.5rem;padding-bottom:4rem}
   padding:1.1rem 1.25rem;
   box-shadow:var(--shadow-well);
 }
-.stat strong{display:block;font-family:var(--font-display);font-weight:900;font-size:1.7rem;line-height:1.1;color:var(--clay-violet)}
+.stat strong{display:block;font-family:var(--font-display);font-weight:900;font-size:1.7rem;line-height:1.1;color:var(--clay-violet);font-variant-numeric:tabular-nums}
 .stat span{font-size:.92rem;color:var(--clay-muted)}
 
 /* ---------- Section labels and pills ---------- */
@@ -176,10 +186,10 @@ main.wrap{padding-top:2.5rem;padding-bottom:4rem}
   color:var(--clay-ink);text-decoration:none;cursor:pointer;border:0;
   padding:.85rem 1.7rem;border-radius:var(--r-btn);
   background:var(--clay-card);box-shadow:var(--shadow-btn);
-  transition:transform .15s ease,box-shadow .2s ease,filter .2s ease;
+  transition:transform .18s var(--ease-spring),box-shadow .2s ease,filter .2s ease;
 }
 .clay-btn:hover{transform:translateY(-3px);filter:brightness(1.03);color:var(--clay-ink)}
-.clay-btn:active{transform:scale(.92)}
+.clay-btn:active{transform:scale(.94)}
 .clay-btn-primary{
   color:#fff;
   background:linear-gradient(135deg,var(--clay-violet) 0%,#9333ea 45%,var(--clay-pink) 100%);
@@ -189,7 +199,7 @@ main.wrap{padding-top:2.5rem;padding-bottom:4rem}
 .clay-btn-sm{font-size:.88rem;padding:.55rem 1.1rem;border-radius:16px}
 
 /* ---------- Grid + clay cards ---------- */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1.5rem;margin:2rem 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1.5rem;margin:2rem 0;perspective:1200px}
 .clay-card{
   position:relative;
   display:flex;flex-direction:column;gap:.6rem;
@@ -199,6 +209,11 @@ main.wrap{padding-top:2.5rem;padding-bottom:4rem}
   transition:transform .22s ease,box-shadow .22s ease;
 }
 .clay-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-hover)}
+/* 3D tilt (JS adds .tilt; transform vars --rx/--ry set from pointer) */
+.clay-card.tilt{
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-6px);
+  transition:transform .1s linear,box-shadow .22s ease;
+}
 .card-top{display:flex;align-items:center;gap:.8rem}
 .clay-card .orb{
   width:2.6rem;height:2.6rem;border-radius:50%;flex:none;
@@ -272,7 +287,7 @@ pre code{
   transition:transform .15s ease,background .2s ease;
 }
 .copy-btn:hover{background:rgba(255,255,255,.26)}
-.copy-btn:active{transform:scale(.92)}
+.copy-btn:active{transform:scale(.94)}
 
 /* ---------- Tables (rounded card tables) ---------- */
 .table-wrap{
@@ -325,7 +340,7 @@ details > *:not(summary){margin-top:.8rem}
 details p:last-child{margin-bottom:0}
 
 /* ---------- Numbered step cards (guides) ---------- */
-.steps{counter-reset:step}
+.steps{counter-reset:step;list-style:none;padding-left:0}
 .step{
   counter-increment:step;
   position:relative;
@@ -417,8 +432,14 @@ blockquote p:last-child{margin-bottom:0}
 .foot .wrap{display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start;justify-content:space-between}
 .foot p{margin:0 0 .6rem;max-width:34rem}
 .foot nav{display:flex;gap:1.2rem;flex-wrap:wrap}
-.foot a{color:var(--clay-muted);font-weight:500}
-.foot a:hover{color:var(--clay-violet)}
+.foot a{
+  color:var(--clay-muted);font-weight:500;text-decoration:none;
+  background-image:linear-gradient(currentColor,currentColor);
+  background-size:0% 2px;background-repeat:no-repeat;
+  background-position:left calc(100% - 2px);
+  transition:background-size .3s ease,color .2s ease;
+}
+.foot a:hover{color:var(--clay-violet);background-size:100% 2px}
 .foot .credit{
   width:100%;margin-top:1.2rem;padding-top:1.2rem;
   border-top:1px solid var(--hairline);font-size:.88rem;
@@ -469,9 +490,69 @@ blockquote p:last-child{margin-bottom:0}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .blobs span{animation:none}
+  /* keep content visible: no-JS-safe hooks must never hide */
+  html.js [data-reveal],html.js [data-hero]{
+    opacity:1 !important;
+    transform:none !important;
+    animation:none !important;
+  }
   *,*::before,*::after{
     animation-duration:.01ms !important;
     animation-iteration-count:1 !important;
     transition-duration:.01ms !important;
   }
+}
+
+/* ============================================================
+   Animation system: scroll reveals, hero entrance, FAQ, feedback.
+   Hidden states only apply under html.js (JS adds the class),
+   so without JavaScript everything stays visible.
+   Animations use transform and opacity only (GPU friendly).
+   ============================================================ */
+
+/* ---------- Scroll reveals (html.js gate, no-JS safe) ---------- */
+html.js [data-reveal]{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);
+  will-change:transform,opacity;
+}
+html.js [data-reveal].in{
+  opacity:1;
+  transform:translateY(0);
+}
+@media (hover:none){
+  html.js [data-reveal]{transform:translateY(14px)}
+}
+
+/* ---------- Hero staggered entrance ---------- */
+html.js [data-hero]{
+  opacity:0;
+  animation:hero-in .8s var(--ease-out) forwards;
+}
+html.js [data-hero="1"]{animation-delay:.02s}
+html.js [data-hero="2"]{animation-delay:.1s}
+html.js [data-hero="3"]{animation-delay:.18s}
+html.js [data-hero="4"]{animation-delay:.26s}
+html.js [data-hero="5"]{animation-delay:.34s}
+html.js [data-hero="6"]{animation-delay:.42s}
+@keyframes hero-in{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:none}
+}
+
+/* ---------- FAQ smooth open (docs page wraps body content in .faq-body><div>) ---------- */
+.faq-body{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .38s var(--ease-out);
+}
+details[open] .faq-body{grid-template-rows:1fr}
+.faq-body > div{overflow:hidden;min-height:0}
+
+/* ---------- Copy button success morph ---------- */
+.copy-btn.copied{
+  background:rgba(16,185,129,.9);
+  border-color:transparent;
+  transform:scale(1.1);
 }

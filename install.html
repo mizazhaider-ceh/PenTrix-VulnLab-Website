@@ -6,15 +6,17 @@
 <title>Install PenTrix VulnLab</title>
 <meta name="description" content="Install PenTrix VulnLab with one Docker command, or run it locally with Node 20+. Prerequisites, first boot, verification, troubleshooting, and safe uninstall.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
-<div class="blobs">
-  <div class="blob-1"></div>
-  <div class="blob-2"></div>
-  <div class="blob-3"></div>
+<div class="blobs" aria-hidden="true">
+  <span class="blob-1"></span>
+  <span class="blob-2"></span>
+  <span class="blob-3"></span>
 </div>
 
 <header class="topbar">
@@ -36,9 +38,9 @@
 <main class="wrap">
 
 <section class="hero">
-  <h1>Install PenTrix VulnLab</h1>
-  <p>Two ways to get the lab running on your own machine. <strong>Docker is the recommended method:</strong> one command, isolated sandbox, no dependency surprises. The local Node method is for people who want to hack on the code itself.</p>
-  <div class="cta-row">
+  <h1 data-hero="1">Install PenTrix VulnLab</h1>
+  <p data-hero="2">Two ways to get the lab running on your own machine. <strong>Docker is the recommended method:</strong> one command, isolated sandbox, no dependency surprises. The local Node method is for people who want to hack on the code itself.</p>
+  <div class="cta-row" data-hero="3">
     <a class="clay-btn clay-btn-primary" href="#docker">Docker method</a>
     <a class="clay-btn clay-btn-secondary" href="#node">Local Node method</a>
   </div>
@@ -46,8 +48,8 @@
 
 <section id="prereqs">
   <h2>Prerequisites</h2>
-  <div class="card">
-    <ul class="checklist">
+  <div class="card" data-reveal data-rdg="3">
+    <ul class="checklist" data-reveal data-rdg="0">
       <li><strong>git</strong>, to clone the repository.</li>
       <li><strong>Docker Desktop</strong> (Windows or macOS) or <strong>Docker Engine</strong> (Linux), for the recommended method.</li>
       <li><strong>~2 GB free disk space</strong> for the images and the database.</li>
@@ -59,24 +61,24 @@
 <section id="docker">
   <h2>Method 1: Docker (recommended)</h2>
 
-  <div class="step">
+  <div class="step" data-reveal data-rdg="0">
     <h3>Clone the repo</h3>
     <pre><code>git clone https://github.com/mizazhaider-ceh/PenTrix-VulnLab.git</code></pre>
     <pre><code>cd PenTrix-VulnLab</code></pre>
   </div>
 
-  <div class="step">
+  <div class="step" data-reveal data-rdg="1">
     <h3>Build and start the container</h3>
     <pre><code>docker compose up --build</code></pre>
     <p>The first build installs dependencies and compiles the database module, so it takes a few minutes. The first boot takes about <strong>20 seconds</strong> while the lab generates your personal flags.</p>
   </div>
 
-  <div class="step">
+  <div class="step" data-reveal data-rdg="2">
     <h3>Open the lab</h3>
     <p>Open <a href="http://localhost:3000">http://localhost:3000</a> in your browser. You should see the module grid with all 29 modules.</p>
   </div>
 
-  <div class="card">
+  <div class="card" data-reveal data-rdg="1">
     <h3>What the Docker setup does for you</h3>
     <ul>
       <li>Binds to <strong>127.0.0.1 only</strong>, so the vulnerable app is reachable from your machine and nowhere else.</li>
@@ -92,42 +94,42 @@
   <h2>Method 2: Run it locally with Node</h2>
   <p>Use this if you want to edit the code, write challenges, or run the regression suite. You need <strong>Node 20+</strong> installed.</p>
 
-  <div class="step">
+  <div class="step" data-reveal data-rdg="0">
     <h3>Clone and install dependencies</h3>
     <pre><code>git clone https://github.com/mizazhaider-ceh/PenTrix-VulnLab.git</code></pre>
     <pre><code>cd PenTrix-VulnLab</code></pre>
     <pre><code>npm install</code></pre>
   </div>
 
-  <div class="step">
+  <div class="step" data-reveal data-rdg="1">
     <h3>Start the app</h3>
     <pre><code>npm start</code></pre>
     <p>Then open <a href="http://localhost:3000">http://localhost:3000</a> in your browser.</p>
   </div>
 
-  <div class="warning">
+  <div class="warning" data-reveal data-rdg="1">
     <strong>Linux build tools.</strong> The <code>better-sqlite3</code> package needs to compile at install time. On Linux, install <code>python3</code>, <code>make</code>, and <code>g++</code> before running <code>npm install</code>. The Dockerfile installs exactly these in its build stage for the same reason.
   </div>
 
-  <div class="warning">
+  <div class="warning" data-reveal data-rdg="2">
     <strong>Set SESSION_SECRET for shared or graded use.</strong> The app falls back to an insecure dev secret when this is unset, which is fine for solo labs only. For anything graded or shared, start with a private value, for example <code>SESSION_SECRET=put-something-private-here npm start</code>, or uncomment the variable in <code>docker-compose.yml</code> and set your own value.
   </div>
 </section>
 
 <section id="first-boot">
   <h2>What happens on first boot</h2>
-  <div class="card">
+  <div class="card" data-reveal data-rdg="2">
     <p>On the first start, the app generates <strong>201 random flags</strong> into a local SQLite database at <code>data/vulnlab.db</code>. Each flag looks like <code>PENTRIX{</code> followed by 32 random hex characters. The <code>data/</code> directory is gitignored, and <strong>no flag literal exists in any tracked file</strong>, so reading the source on GitHub spoils nothing. Your flags are generated on your machine, which means <strong>your flags differ from everyone else's</strong>.</p>
   </div>
 </section>
 
 <section id="verify">
   <h2>Verify it works</h2>
-  <div class="step">
+  <div class="step" data-reveal data-rdg="2">
     <h3>Check the home page</h3>
     <p>Open <a href="http://localhost:3000">http://localhost:3000</a>. You should see the module grid: <strong>29 modules</strong> with search and difficulty filters.</p>
   </div>
-  <div class="step">
+  <div class="step" data-reveal data-rdg="0">
     <h3>Open a module</h3>
     <p>Pick any module and open its first challenge. If the briefing loads and the challenge page renders, your install is healthy.</p>
   </div>
@@ -135,7 +137,7 @@
 
 <section id="troubleshooting">
   <h2>Troubleshooting</h2>
-  <div class="card">
+  <div class="card" data-reveal data-rdg="0">
     <dl>
       <dt>Port 3000 is already in use</dt>
       <dd>Something else is listening on 3000. Stop the other process, or change the port mapping in <code>docker-compose.yml</code> (for example <code>"127.0.0.1:3001:3000"</code>) and start again.</dd>
@@ -155,11 +157,11 @@
 
 <section id="uninstall">
   <h2>Uninstall</h2>
-  <div class="step">
+  <div class="step" data-reveal data-rdg="1">
     <h3>Remove the container and its volumes</h3>
     <pre><code>docker compose down -v</code></pre>
   </div>
-  <div class="step">
+  <div class="step" data-reveal data-rdg="2">
     <h3>Delete the folder</h3>
     <pre><code>cd ..</code></pre>
     <pre><code>rm -rf PenTrix-VulnLab</code></pre>
@@ -167,7 +169,7 @@
   </div>
 </section>
 
-<div class="warning">
+<div class="warning" data-reveal data-rdg="3">
   <strong>Safety first.</strong> PenTrix VulnLab is <strong>intentionally vulnerable</strong>. Run it only on your own machine, on localhost. The Docker setup binds to <strong>127.0.0.1 only</strong> for a reason: never expose this lab to the internet or to any network you do not fully control.
 </div>
 

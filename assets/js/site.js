@@ -1,14 +1,19 @@
-/*
- * PenTrix website, small progressive enhancements.
- * Vanilla JS, no dependencies. Light only, no theme logic.
- */
+/* PenTrix website: progressive enhancements. Vanilla JS, no dependencies. */
 (function () {
   "use strict";
 
+  var reducedMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   function init() {
+    document.documentElement.classList.add("js");
     copyButtons();
     navHighlight();
     smoothScroll();
+    try { reveals(); } catch (e) {}
+    try { countUps(); } catch (e) {}
+    try { navScroll(); } catch (e) {}
+    try { tilt(); } catch (e) {}
   }
 
   /* 1. Copy buttons for every <pre> containing <code> */
@@ -38,9 +43,11 @@
               if (ok) {
                 var original = btn.textContent;
                 btn.textContent = "Copied";
+                btn.classList.add("copied");
                 btn.setAttribute("disabled", "disabled");
                 setTimeout(function () {
                   btn.textContent = original;
+                  btn.classList.remove("copied");
                   btn.removeAttribute("disabled");
                 }, 1500);
               }
@@ -171,14 +178,146 @@
     }
   }
 
-  /* Boot once the DOM is ready. */
+  /* 4. Scroll reveals: [data-reveal] enters view with stagger via data-rdg */
+  function reveals() {
+    var els = document.querySelectorAll("[data-reveal]");
+    if (!els.length) return;
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      for (var i = 0; i < els.length; i++) els[i].classList.add("in");
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        el.style.transitionDelay = (Math.min(el.dataset.rdg || 0, 5) * 70) + "ms";
+        el.classList.add("in");
+        io.unobserve(el);
+        el.addEventListener("transitionend", function h() {
+          el.style.willChange = "auto";
+          el.removeEventListener("transitionend", h);
+        });
+      });
+    }, { threshold: 0.12, rootMargin: "0 0 -8% 0" });
+    for (var j = 0; j < els.length; j++) io.observe(els[j]);
+  }
+
+  /* 5. Count-up stats */
+  function countUps() {
+    var els = document.querySelectorAll(".stat strong[data-count]");
+    if (!els.length) return;
+    if (reducedMotion || !("IntersectionObserver" in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        io.unobserve(el);
+        var target = +el.dataset.count;
+        if (isNaN(target)) return;
+        var dur = 1200, start = null;
+        function frame(now) {
+          start = start || now;
+          var t = Math.min((now - start) / dur, 1);
+          el.textContent = Math.round(target * (1 - Math.pow(2, -10 * t)));
+          if (t < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      });
+    }, { threshold: 0.4 });
+    for (var i = 0; i < els.length; i++) io.observe(els[i]);
+  }
+
+  /* 6. Nav scrolled state */
+  function navScroll() {
+    var bar = document.querySelector(".topbar");
+    if (!bar) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      bar.classList.toggle("scrolled", window.scrollY > 8);
+    }
+    update();
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+  }
+
+  /* 7. Card tilt: 3D lean on hover-capable pointers */
+  function tilt() {
+    if (reducedMotion) return;
+    if (!window.matchMedia || !window.matchMedia("(hover: hover)").matches) return;
+    function apply(card, ev) {
+      var r = card.getBoundingClientRect();
+      var x = (ev.clientX - r.left) / r.width - 0.5;
+      var y = (ev.clientY - r.top) / r.height - 0.5;
+      var rx = Math.max(-4, Math.min(4, y * -8));
+      var ry = Math.max(-4, Math.min(4, x * 8));
+      card.style.setProperty("--rx", rx + "deg");
+      card.style.setProperty("--ry", ry + "deg");
+      card.classList.add("tilt");
+    }
+    function clear(card) {
+      card.classList.remove("tilt");
+      card.style.removeProperty("--rx");
+      card.style.removeProperty("--ry");
+    }
+    function attachGrid(grid) {
+      var current = null, raf = null;
+      grid.addEventListener("mousemove", function (ev) {
+        var card = ev.target && ev.target.closest
+          ? ev.target.closest(".clay-card") : null;
+        if (card !== current) {
+          if (current) clear(current);
+          current = card;
+        }
+        if (!current) return;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function () {
+          raf = null;
+          apply(current, ev);
+        });
+      });
+      grid.addEventListener("mouseleave", function () {
+        if (current) clear(current);
+        current = null;
+        cancelAnimationFrame(raf);
+        raf = null;
+      });
+    }
+    var grids = document.querySelectorAll(".grid");
+    var g;
+    if (grids.length) {
+      for (g = 0; g < grids.length; g++) attachGrid(grids[g]);
+    } else {
+      var cards = document.querySelectorAll(".clay-card");
+      for (var i = 0; i < cards.length; i++) {
+        (function (card) {
+          var raf = null;
+          card.addEventListener("mousemove", function (ev) {
+            if (raf) return;
+            raf = requestAnimationFrame(function () {
+              raf = null;
+              apply(card, ev);
+            });
+          });
+          card.addEventListener("mouseleave", function () {
+            cancelAnimationFrame(raf);
+            raf = null;
+            clear(card);
+          });
+        })(cards[i]);
+      }
+    }
+  }
+
   try {
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", init);
     } else {
       init();
     }
-  } catch (e) {
-    /* Nothing else to do. */
-  }
+  } catch (e) {}
 })();
