@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick Start: Your First Flag in 5 Minutes | PenTrix VulnLab</title>
+<meta name="description" content="Capture your first PENTRIX flag in five minutes: open the SQL Injection module, bypass the login, and see your scoreboard go to 1/201.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<div class="blobs" aria-hidden="true"><span class="blob-1"></span><span class="blob-2"></span><span class="blob-3"></span></div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="orb" aria-hidden="true"></span>
+      <span>PenTrix VulnLab</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="install.html">Install</a>
+      <a href="quickstart.html" aria-current="page">Quick Start</a>
+      <a href="docs.html">Docs</a>
+      <a class="clay-btn clay-btn-sm" href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Your first flag in 5 minutes</h1>
+      <p class="tagline">No tools needed beyond a browser. You will open the lab, spot the bug, break a login with one line of typed SQL, and watch your scoreboard move to 1/201. Follow the steps in order.</p>
+      <div class="cta-row">
+        <a class="clay-btn clay-btn-primary" href="install.html">Install the lab first</a>
+        <a class="clay-btn clay-btn-secondary" href="docs.html">Browse the docs</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <ol class="steps">
+      <li class="step">
+        <h2>Open the lab and see the module grid</h2>
+        <p>Start the lab (<code>docker compose up --build</code>), then open <code>http://localhost:3000</code> in your browser. You land on the home page: a grid of 29 modules, each one a small real website with a real bug. This is the map of all 201 challenges.</p>
+        <figure>
+        <img src="assets/img/shot-home.png" alt="PenTrix VulnLab home page showing the grid of 29 vulnerability modules">
+        <figcaption>The home page: the grid of all 29 modules.</figcaption>
+      </figure>
+      </li>
+      <li class="step">
+        <h2>Open the SQL Injection module</h2>
+        <p>Click the <strong>SQL Injection</strong> module. You see its challenge list: several login and query challenges ranked from easy to hard. Each challenge has a hint ladder, so if you get stuck you can reveal hints one at a time instead of reading a full solution.</p>
+        <figure>
+        <img src="assets/img/shot-sqli-module.png" alt="SQL Injection module page showing the challenge list and hint ladder">
+        <figcaption>The SQL Injection module: challenge list with hint ladders.</figcaption>
+      </figure>
+      </li>
+      <li class="step">
+        <h2>Open the Login Bypass challenge</h2>
+        <p>Click the <strong>Login Bypass</strong> challenge. You get a plain login form: username, password, and a Log in button. Here is the key idea: this login builds its SQL query by pasting your input straight into the query string. Whatever you type becomes part of the database query, and the database runs it.</p>
+        <figure>
+        <img src="assets/img/shot-login.png" alt="Login Bypass challenge page showing a simple username and password login form">
+        <figcaption>The Login Bypass challenge: a plain login form.</figcaption>
+      </figure>
+      </li>
+      <li class="step">
+        <h2>Type the payload and log in</h2>
+        <p>In the username field, type exactly this (the space at the end is part of it):</p>
+        <pre><code><kbd>admin' -- </kbd></code></pre>
+        <p>Type any password, for example <kbd>x</kbd>, then click <strong>Log in</strong>. What happens: the query the server builds becomes something like <code>SELECT * FROM users WHERE username = 'admin' -- ' AND password = 'x'</code>. Everything after <code>--</code> is a comment, so the password check disappears and the query returns the admin row.</p>
+      </li>
+      <li class="step">
+        <h2>Watch the flag appear</h2>
+        <p>The page shows <strong>Flag captured</strong> with your flag, which looks like <code>PENTRIX{...}</code> followed by 32 random hex characters. Note: this flag was generated on your machine on first boot. Nobody else has it, so it cannot be copied from GitHub or from another student.</p>
+        <figure>
+        <img src="assets/img/shot-flag-captured.png" alt="Flag captured page showing a captured PENTRIX flag after the login bypass">
+        <figcaption>Flag captured: your per-install PENTRIX flag appears.</figcaption>
+      </figure>
+      </li>
+      <li class="step">
+        <h2>Check your scoreboard</h2>
+        <p>Open the <strong>Scoreboard</strong> from the nav. It reads <strong>1/201</strong>: one challenge solved, 200 to go. Shortcuts earn nothing here (bare beacons and token replays get a 400), so that 1 only appears because you did a genuine exploit.</p>
+        <figure>
+        <img src="assets/img/shot-scoreboard.png" alt="Scoreboard showing 1 of 201 challenges solved">
+        <figcaption>The scoreboard reads 1/201 after your first genuine exploit.</figcaption>
+      </figure>
+      </li>
+    </ol>
+
+    <aside class="warning">
+      <strong>Troubleshooting tip.</strong> If the exploit fails, the most common cause is the payload. The trailing space after <code>--</code> matters, it is part of the SQL comment syntax. Retype <kbd>admin' -- </kbd> carefully, with the space at the end, and try again.
+    </aside>
+
+    <section aria-labelledby="next-steps">
+      <h2 id="next-steps">Next steps</h2>
+      <div class="grid">
+        <article class="clay-card">
+          <div class="card-top"><span class="orb" aria-hidden="true"></span><span class="badge-new">Guided</span></div>
+          <h3>Start the Zero to Web Pentester path</h3>
+          <p class="tagline">Follow the guided career path inside the lab under /paths. Finish it and earn a verifiable PNG certificate.</p>
+        </article>
+        <article class="clay-card">
+          <div class="card-top"><span class="orb" aria-hidden="true"></span></div>
+          <h3>Try a kill-chain scenario</h3>
+          <p class="tagline">Chain bugs across modules in staged scenarios: Shop Takeover, API Heist, and Ghost in the CMS.</p>
+        </article>
+        <article class="clay-card">
+          <div class="card-top"><span class="orb" aria-hidden="true"></span></div>
+          <h3>Read the docs</h3>
+          <p class="tagline">Learn how flags, certificates, and break-then-fix mode work before you go deeper.</p>
+          <div class="card-foot"><a class="clay-btn clay-btn-secondary clay-btn-sm" href="docs.html">Open docs</a></div>
+        </article>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><strong>PenTrix VulnLab is intentionally vulnerable. Run it only on your own machine.</strong></p>
+    <nav aria-label="Footer navigation">
+      <a href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">GitHub repo</a>
+      <a href="install.html">Install guide</a>
+      <a href="docs.html">Docs</a>
+    </nav>
+    <p class="credit">Built by Muhammad Izaz Haider (<a href="https://github.com/mizazhaider-ceh" target="_blank" rel="noopener">@mizazhaider-ceh</a>)</p>
+  </div>
+</footer>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

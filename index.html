@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PenTrix VulnLab: Learn Web Security by Breaking Real Websites</title>
+<meta name="description" content="PenTrix VulnLab is an intentionally vulnerable lab with 201 hands-on web security challenges across 29 modules. Every flag is earned by real exploitation, nothing leaks from source.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<div class="blobs" aria-hidden="true">
+  <span class="blob-1"></span>
+  <span class="blob-2"></span>
+  <span class="blob-3"></span>
+</div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="orb" aria-hidden="true"></span>
+      <span>PenTrix VulnLab</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="install.html">Install</a>
+      <a href="quickstart.html">Quick Start</a>
+      <a href="docs.html">Docs</a>
+      <a class="clay-btn clay-btn-sm" href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Intentionally vulnerable. Honestly educational.</p>
+      <h1>Learn web security by breaking real websites.</h1>
+      <p class="subhead">Every challenge is a small, genuine website with a real bug. 201 challenges across 29 modules, and every single flag is earned by real exploitation: nothing leaks from source, shortcuts get rejected.</p>
+      <div class="cta-row">
+        <a class="clay-btn clay-btn-primary" href="install.html">Install the lab</a>
+        <a class="clay-btn clay-btn-secondary" href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <div class="stats" role="list">
+        <div class="stat" role="listitem"><strong>29</strong><span>modules</span></div>
+        <div class="stat" role="listitem"><strong>201</strong><span>challenges</span></div>
+        <div class="stat" role="listitem"><strong>3</strong><span>scenarios</span></div>
+        <div class="stat" role="listitem"><strong>3</strong><span>career paths</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="features" aria-labelledby="features-h">
+    <h2 id="features-h">Everything a web pentest lab should be</h2>
+    <p class="tagline">Real apps, real bugs, real exploitation. No filler, no spoilers, no shortcuts that count.</p>
+    <div class="grid">
+      <article class="clay-card">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Challenge library</h3></div>
+        <p>201 challenges across 29 modules, each one its own page and its own little website. SQLi, XSS, auth bugs, IDOR, SSRF, file upload, deserialization, and more.</p>
+        <div class="card-foot"><span class="badge-new">201 challenges</span></div>
+      </article>
+      <article class="clay-card">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Break-then-fix</h3></div>
+        <p>Exploit the bug, then patch the code. The lab re-runs the exploit against your fix in a sandbox and tells you whether it holds. Learn both sides of the vulnerability.</p>
+        <div class="card-foot"><span class="badge-new">Attacker and defender</span></div>
+      </article>
+      <article class="clay-card">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Kill-chain scenarios</h3></div>
+        <p>Three multi-stage scenarios that chain bugs into full compromises: Shop Takeover, API Heist, and Ghost in the CMS. New stages unlock as you progress.</p>
+        <div class="card-foot"><span class="badge-new">3 scenarios</span></div>
+      </article>
+      <article class="clay-card">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Career paths plus certificates</h3></div>
+        <p>Guided paths for Zero to Web Pentester, API Hacker, and Authentication Assassin. Finish a path and earn a verifiable PNG certificate bound to your install.</p>
+        <div class="card-foot"><span class="badge-new">3 paths</span></div>
+      </article>
+      <article class="clay-card">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Per-install random flags</h3></div>
+        <p>Flags look like <code>PENTRIX{32 hex}</code> and are generated on your machine at first boot, stored in a gitignored database. There is no flag literal anywhere in the source, so nothing can leak.</p>
+        <div class="card-foot"><span class="badge-new">Born on your machine</span></div>
+      </article>
+      <article class="clay-card">
+        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Hint ladders</h3></div>
+        <p>Stuck? Every challenge has a 3-level hint ladder, and full walkthroughs live in SOLUTIONS.md. You get guidance when you need it, never the flag for free.</p>
+        <div class="card-foot"><span class="badge-new">Never flags</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap" id="gallery" aria-labelledby="gallery-h">
+    <h2 id="gallery-h">A peek inside the lab</h2>
+    <p class="tagline">The real thing: a clay-styled dashboard, modules, scenarios, and certificates you can actually earn.</p>
+    <div class="grid">
+      <figure class="clay-card">
+        <img src="assets/img/shot-home.png" alt="PenTrix VulnLab home dashboard showing module progress and recent activity" loading="lazy">
+        <figcaption>Step 1. What is shown: the home dashboard with your modules, progress, and recent activity. What happened: this is the landing page you see after first boot, everything you need is one click away.</figcaption>
+      </figure>
+      <figure class="clay-card">
+        <img src="assets/img/shot-sqli-module.png" alt="SQL injection module page listing its challenges and difficulty levels" loading="lazy">
+        <figcaption>Step 2. What is shown: the SQL injection module with its challenge list. What happened: each module groups related challenges by difficulty so you can warm up before the hard ones.</figcaption>
+      </figure>
+      <figure class="clay-card">
+        <img src="assets/img/shot-scenarios.png" alt="Kill-chain scenarios page showing Shop Takeover, API Heist, and Ghost in the CMS" loading="lazy">
+        <figcaption>Step 3. What is shown: the three kill-chain scenarios. What happened: scenarios chain individual bugs into full attack paths, and new stages unlock as you clear earlier ones.</figcaption>
+      </figure>
+      <figure class="clay-card">
+        <img src="assets/img/shot-certificate.png" alt="Verifiable PenTrix VulnLab completion certificate with verification code" loading="lazy">
+        <figcaption>Step 4. What is shown: a verifiable completion certificate (demo values shown). What happened: finishing a career path earns a PNG certificate with a verification code bound to your install.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap" id="compare" aria-labelledby="compare-h">
+    <h2 id="compare-h">Why PenTrix</h2>
+    <p class="tagline">How PenTrix VulnLab compares to the labs you already know.</p>
+    <div class="card">
+      <div class="table-scroll">
+        <table>
+          <caption>Comparison of PenTrix VulnLab, Juice Shop, WebGoat, and PortSwigger Academy</caption>
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">PenTrix VulnLab</th>
+              <th scope="col">Juice Shop</th>
+              <th scope="col">WebGoat</th>
+              <th scope="col">PortSwigger Academy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Challenges</th><td>201</td><td>100+</td><td>Lesson-based</td><td>Extensive</td></tr>
+            <tr><th scope="row">Flags random per install</th><td>Yes</td><td>No</td><td>No</td><td>N/A</td></tr>
+            <tr><th scope="row">Shortcut exploits rejected</th><td>Yes</td><td>Partial</td><td>No</td><td>Yes</td></tr>
+            <tr><th scope="row">Break-then-fix mode</th><td>In development</td><td>No</td><td>No</td><td>No</td></tr>
+            <tr><th scope="row">Kill-chain scenarios</th><td>Yes, 3</td><td>No</td><td>No</td><td>Partial</td></tr>
+            <tr><th scope="row">Guided career paths</th><td>Yes, 3 with certificates</td><td>No</td><td>Lessons</td><td>Yes</td></tr>
+            <tr><th scope="row">One-command local setup</th><td>Yes</td><td>Yes</td><td>Yes</td><td>Browser only</td></tr>
+            <tr><th scope="row">Fully open source</th><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">Quick answers</h2>
+    <p class="tagline">The short version. The <a href="docs.html">full docs</a> have the long version.</p>
+    <details>
+      <summary>Is it safe to run?</summary>
+      <p>Yes, on your own machine. The lab is built to run localhost-only: the Docker setup binds to localhost, drops Linux capabilities, limits memory and CPU, and includes a healthcheck. Keep it on your own machine or an isolated lab network, and never point it at anyone else's systems.</p>
+    </details>
+    <details>
+      <summary>Can I put it on the internet?</summary>
+      <p>No. PenTrix VulnLab is intentionally vulnerable, so a public deployment would be compromised within hours. Run it only on your own machine or an isolated lab network.</p>
+    </details>
+    <details>
+      <summary>How do flags work?</summary>
+      <p>Every flag looks like <code>PENTRIX{32 hex}</code> and is generated randomly on your machine at first boot, stored in a gitignored SQLite database. No flag exists in the source code, so the only way to get one is to genuinely exploit the challenge. Shortcuts earn nothing: bare beacons get 400, token replays get 400.</p>
+    </details>
+    <p><a class="clay-btn clay-btn-secondary" href="docs.html">Read the full docs</a></p>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><strong>PenTrix VulnLab is intentionally vulnerable. Run it only on your own machine.</strong></p>
+    <nav aria-label="Footer navigation">
+      <a href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">GitHub repo</a>
+      <a href="install.html">Install guide</a>
+      <a href="docs.html">Docs</a>
+    </nav>
+    <p class="credit">Built by Muhammad Izaz Haider (<a href="https://github.com/mizazhaider-ceh" target="_blank" rel="noopener">@mizazhaider-ceh</a>)</p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
