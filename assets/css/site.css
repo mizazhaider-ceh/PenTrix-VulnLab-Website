@@ -661,3 +661,8 @@ html{
   color:var(--clay-pink);text-decoration:none;
 }
 .repo-link:hover{text-decoration:underline}
+
+/* Hero demo video */
+.hero-video{max-width:960px;margin:2.5rem auto 0;border-radius:24px;overflow:hidden;box-shadow:16px 16px 32px rgba(160,150,180,.2),-10px -10px 24px rgba(255,255,255,.9);border:1px solid rgba(124,58,237,.25)}
+.hero-video video{display:block;width:100%;height:auto}
+.vid-note{text-align:center;color:#635F69;font-size:.9rem;margin-top:.75rem}

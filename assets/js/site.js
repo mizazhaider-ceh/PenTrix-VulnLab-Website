@@ -14,6 +14,10 @@
     try { countUps(); } catch (e) {}
     try { navScroll(); } catch (e) {}
     try { tilt(); } catch (e) {}
+    try {
+      var hv = document.querySelector(".hero-video video");
+      if (hv && reducedMotion) { hv.removeAttribute("autoplay"); hv.pause(); }
+    } catch (e) {}
   }
 
   /* 1. Copy buttons for every <pre> containing <code> */
