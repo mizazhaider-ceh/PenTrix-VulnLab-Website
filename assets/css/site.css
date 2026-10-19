@@ -635,3 +635,25 @@ html{
   .step::before{background:none;color:var(--clay-violet)}
   a{text-decoration:underline}
 }
+
+/* Projects + author band (projects page) */
+.author-band{
+  background:var(--clay-card);
+  border-radius:var(--r-card);
+  padding:1.5rem 2rem;
+  margin-bottom:2rem;
+  box-shadow:var(--shadow-card);
+  text-align:center;
+}
+.author-bio{
+  font-size:1.05rem;font-weight:600;color:var(--clay-ink);
+  margin-bottom:1rem;
+}
+.author-links{
+  display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;
+}
+.repo-link{
+  font-family:var(--font-display);font-weight:800;font-size:.85rem;
+  color:var(--clay-pink);text-decoration:none;
+}
+.repo-link:hover{text-decoration:underline}
