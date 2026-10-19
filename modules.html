@@ -9,6 +9,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="mask-icon" href="assets/img/favicon.svg" color="#7C3AED">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
@@ -38,7 +40,7 @@
 <header class="topbar">
   <div class="wrap topbar-inner">
     <a class="brand" href="index.html">
-      <span class="orb" aria-hidden="true"></span>
+      <img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true">
       <span>PenTrix VulnLab</span>
     </a>
     <nav aria-label="Main navigation">
@@ -71,37 +73,37 @@
     <p class="tagline">Start here: the core web flaw families every tester meets first, in small, forgiving challenges.</p>
     <div class="grid">
       <article class="clay-card" id="module-csrf" data-reveal data-rdg="0">
-        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>CSRF &amp; Clickjacking</h3></div>
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>CSRF &amp; Clickjacking</h3></div>
         <p>Forge cross-site requests against tokenless state-changing endpoints, sneak JSON requests past naive checks, and frame pages missing frame protection.</p>
         <div class="card-foot"><span class="badge-new">5 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
       </article>
       <article class="clay-card" id="module-formula" data-reveal data-rdg="1">
-        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>CSV Formula Injection</h3></div>
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>CSV Formula Injection</h3></div>
         <p>Poison a contact export so spreadsheet apps run your cells: classic formulas, DDE commands, hyperlinks, and pipe-prefixed LibreOffice payloads.</p>
         <div class="card-foot"><span class="badge-new">4 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
       </article>
       <article class="clay-card" id="module-http" data-reveal data-rdg="2">
-        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>HTTP Layer Flaws</h3></div>
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>HTTP Layer Flaws</h3></div>
         <p>Work directly with raw HTTP behavior: forge log lines through header injection, swap request verbs, and trick a cache key into serving the wrong user.</p>
         <div class="card-foot"><span class="badge-new">3 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
       </article>
       <article class="clay-card" id="module-idor" data-reveal data-rdg="3">
-        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Broken Access Control</h3></div>
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>Broken Access Control</h3></div>
         <p>Act as a regular user who reaches other people's data by changing ids, visiting hidden admin pages, and touching functions the app never guarded.</p>
         <div class="card-foot"><span class="badge-new">7 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
       </article>
       <article class="clay-card" id="module-misconfig" data-reveal data-rdg="4">
-        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Security Misconfiguration</h3></div>
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>Security Misconfiguration</h3></div>
         <p>Survey a carelessly deployed app: read debug errors, exposed backups, .env and .git, directory listings, default credentials, and open upload endpoints.</p>
         <div class="card-foot"><span class="badge-new">10 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
       </article>
       <article class="clay-card" id="module-redirect" data-reveal data-rdg="5">
-        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Open Redirect</h3></div>
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>Open Redirect</h3></div>
         <p>Trace unvalidated redirect parameters across five labs, probing allowlist tricks, odd schemes, and duplicate parameters that steer users to attacker pages.</p>
         <div class="card-foot"><span class="badge-new">5 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
       </article>
       <article class="clay-card" id="module-xss" data-reveal data-rdg="6">
-        <div class="card-top"><span class="orb" aria-hidden="true"></span><h3>Cross-Site Scripting</h3></div>
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>Cross-Site Scripting</h3></div>
         <p>Hunt nine cross-site scripting flaws across reflected, stored, and DOM flavors, learning where browsers will happily run your injected script.</p>
         <div class="card-foot"><span class="badge-new">9 challenges</span><span class="pill pill-difficulty">Beginner</span></div>
       </article>
@@ -256,7 +258,7 @@
       <a href="tools.html">Tools</a>
       <a href="modules.html">Modules</a>
     </nav>
-    <p class="credit">Built by Muhammad Izaz Haider (<a href="https://github.com/mizazhaider-ceh" target="_blank" rel="noopener">@mizazhaider-ceh</a>) &middot; <a href="https://www.linkedin.com/in/muhammad-izaz-haider-091639314/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://www.mizazhaider-ceh.dev/" target="_blank" rel="noopener">Portfolio</a></p>
+    <p class="credit"><img class="foot-mark" src="assets/img/logo.svg" alt="PenTrix VulnLab logo" width="22" height="22"> Built by Muhammad Izaz Haider (<a href="https://github.com/mizazhaider-ceh" target="_blank" rel="noopener">@mizazhaider-ceh</a>) &middot; <a href="https://www.linkedin.com/in/muhammad-izaz-haider-091639314/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://www.mizazhaider-ceh.dev/" target="_blank" rel="noopener">Portfolio</a></p>
   </div>
 </footer>
 
