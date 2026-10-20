@@ -76,6 +76,9 @@
 }
 .term-screen pre{
   margin:0;
+  padding:0;                    /* the site-wide pre rule adds 1.4rem padding; inside the
+                                 padded screen that stacks into dead black space above
+                                 and below the transcript, so the widget zeroes it */
   font-family:var(--font-mono,ui-monospace,"Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace);
   font-size:.875rem;
   line-height:1.7;
@@ -120,7 +123,9 @@ html.js .term.is-typing .term-static{display:none}
 @media (max-width:560px){
   .term{padding:1rem;border-radius:24px}
   .term-screen{padding:.9rem 1rem}
-  .term-screen pre{font-size:.8rem}
+  /* Readable terminal text on phones: 13.6px effective, and lines wrap
+     instead of clipping off-screen behind a horizontal scroll. */
+  .term-screen pre{font-size:.85rem;white-space:pre-wrap;overflow-wrap:break-word}
 }
 @media (prefers-reduced-motion:reduce){
   .term-cursor{animation:none}

@@ -52,9 +52,16 @@
 
   var MAX_RESULTS = 8, MIN_QUERY = 2;
 
-  var overlay, input, list, closeBtn, openBtn;
+  var overlay, input, list, closeBtn, openBtn, status;
   var results = [], active = -1, openedBy = null;
   var isOpen = false;
+
+  /* Screen reader announcement for result counts. The results list is a
+     listbox, which does not announce changes reliably, so render() also
+     writes a short summary here. */
+  function announce(text) {
+    try { if (status) status.textContent = text; } catch (e) {}
+  }
 
   function $(id) { return document.getElementById(id); }
 
@@ -153,13 +160,16 @@
       if (q.length < MIN_QUERY) {
         list.innerHTML = "";
         input.setAttribute("aria-expanded", "false");
+        announce("");
         return;
       }
       results = search(q);
       if (!results.length) {
-        html = '<li class="search-empty">No matches for \u201C' + escHtml(q) + "\u201D. Try fewer words.</li>";
+        html = '<li class="search-empty" role="option" aria-selected="false" aria-disabled="true">No matches for \u201C' + escHtml(q) + "\u201D. Try fewer words, or check the spelling.</li>";
+        announce("No matches for " + q + ". Try fewer words, or check the spelling.");
       } else {
         for (i = 0; i < results.length; i++) html += itemHtml(results[i], i, ts);
+        announce(results.length + (results.length === 1 ? " result" : " results") + " for " + q + ". Use the arrow keys to choose one, then press Enter.");
       }
       list.innerHTML = html;
       input.setAttribute("aria-expanded", results.length ? "true" : "false");
@@ -178,7 +188,19 @@
       input.value = "";
       render("");
       openBtn.setAttribute("aria-expanded", "true");
-      input.focus();
+      /* The overlay is visibility:hidden until the .open transition runs,
+         and browsers refuse to focus elements inside a hidden subtree, so
+         an immediate focus() silently fails and focus stays on the search
+         button. Focus again on the next frame and once the transition has
+         finished, keeping whichever attempt lands first. */
+      var focusInput = function () { try { input.focus(); } catch (e) {} };
+      focusInput();
+      if (window.requestAnimationFrame) {
+        window.requestAnimationFrame(function () { window.requestAnimationFrame(focusInput); });
+      }
+      setTimeout(function () {
+        try { if (isOpen && document.activeElement !== input) focusInput(); } catch (e) {}
+      }, 300);
     } catch (e) {}
   }
 
@@ -263,6 +285,16 @@
       list = $("search-results");
       closeBtn = $("search-close");
       if (!openBtn || !overlay || !input || !list || !closeBtn) return;
+      if (!status) {
+        try {
+          status = document.createElement("p");
+          status.className = "visually-hidden";
+          status.setAttribute("aria-live", "polite");
+          status.setAttribute("role", "status");
+          var panel = overlay.querySelector(".search-panel");
+          (panel || overlay).appendChild(status);
+        } catch (e) { status = null; }
+      }
       input.addEventListener("input", function () {
         try { render(input.value); } catch (e) {}
       });

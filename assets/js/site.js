@@ -231,29 +231,78 @@
     for (var j = 0; j < els.length; j++) io.observe(els[j]);
   }
 
-  /* 5. Count-up stats */
+  /* 5. Count-up stats: progressive enhancement only. The static HTML
+     already carries the final values, so with no JS, with reduced
+     motion, or without IntersectionObserver the numbers are simply
+     read as printed and never touched.
+     Bug fixed here: the old version left the final values in place
+     until the observer fired, then its first animation frame wrote 0
+     over them. Readers saw the correct numbers, then a visible drop
+     to 0 and a climb back up through wrong values (24 modules, about
+     169 challenges) to the same finals. The fix resets each stat to 0
+     synchronously during init, in the same pass that reveals the
+     hero, so the final value is never painted first and then replaced
+     by a lower one. Each stat then animates exactly once, rising
+     monotonically to its target.
+     Once-only is enforced twice: a script-level flag stops a repeat
+     countUps() call, and a per-element data-count-state attribute
+     (pending, running, done) stops any second observer, observer
+     re-trigger, or even a second copy of this script from restarting
+     or interleaving another loop, which would dip the numbers again.
+     A 2500ms fallback finishes any stat the observer never claimed,
+     so a stat can never be left sitting at 0. */
+  var countUpsDone = false;
   function countUps() {
+    if (countUpsDone) return;
+    countUpsDone = true;
     var els = document.querySelectorAll(".stat strong[data-count]");
     if (!els.length) return;
     if (reducedMotion || !("IntersectionObserver" in window)) return;
+    var pending = [];
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (el.getAttribute("data-count-state")) continue;
+      var target = parseInt(el.getAttribute("data-count"), 10);
+      if (isNaN(target)) continue;
+      el.setAttribute("data-count-state", "pending");
+      el.textContent = "0";
+      pending.push(el);
+    }
+    if (!pending.length) return;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         var el = e.target;
         io.unobserve(el);
-        var target = +el.dataset.count;
-        if (isNaN(target)) return;
+        if (el.getAttribute("data-count-state") !== "pending") return;
+        el.setAttribute("data-count-state", "running");
+        var target = parseInt(el.getAttribute("data-count"), 10);
         var dur = 1200, start = null;
         function frame(now) {
-          start = start || now;
+          if (start === null) start = now;
           var t = Math.min((now - start) / dur, 1);
-          el.textContent = Math.round(target * (1 - Math.pow(2, -10 * t)));
-          if (t < 1) requestAnimationFrame(frame);
+          var val = t >= 1 ? String(target)
+            : String(Math.round(target * (1 - Math.pow(2, -10 * t))));
+          if (el.textContent !== val) el.textContent = val;
+          if (t >= 1) {
+            el.setAttribute("data-count-state", "done");
+            return;
+          }
+          requestAnimationFrame(frame);
         }
         requestAnimationFrame(frame);
       });
     }, { threshold: 0.4 });
-    for (var i = 0; i < els.length; i++) io.observe(els[i]);
+    for (var j = 0; j < pending.length; j++) io.observe(pending[j]);
+    setTimeout(function () {
+      for (var k = 0; k < pending.length; k++) {
+        var el = pending[k];
+        if (el.getAttribute("data-count-state") !== "pending") continue;
+        try { io.unobserve(el); } catch (err) {}
+        el.textContent = el.getAttribute("data-count");
+        el.setAttribute("data-count-state", "done");
+      }
+    }, 2500);
   }
 
   /* 6. Nav scrolled state */
