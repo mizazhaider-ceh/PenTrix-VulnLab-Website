@@ -186,6 +186,33 @@
     </div>
   </section>
 
+  <section class="wrap" id="whatsnew" aria-labelledby="whatsnew-h">
+    <h2 id="whatsnew-h" data-reveal>What is new in v1.1.0: student-tested hardening</h2>
+    <p class="tagline" data-reveal>50 learner testers, from first-timers to CTF players, attacked this lab and reported everything that felt cheap, broken, or unfair. Then senior reviewers re-attacked the fixes. This release is what came out of it.</p>
+    <div class="grid">
+      <article class="clay-card" data-reveal data-rdg="0">
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>Evidence-gated flags</h3></div>
+        <p>Students found ways to earn flags without really exploiting anything. All of them are closed. Every flag now demands proof of a genuine exploit, verified fresh on each capture.</p>
+        <div class="card-foot"><span class="badge-new">No more cheap flags</span></div>
+      </article>
+      <article class="clay-card" data-reveal data-rdg="1">
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>Classroom-safe isolation</h3></div>
+        <p>Race state, credentials, and progress are now scoped per student, so a classroom can run the lab without students breaking each other. Progress exports to CSV, and a classroom guide ships with the lab.</p>
+        <div class="card-foot"><span class="badge-new">Built for classes</span></div>
+      </article>
+      <article class="clay-card" data-reveal data-rdg="2">
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>Honest Burp guidance</h3></div>
+        <p>Hints now teach techniques Burp Community can actually do: Repeater parallel groups for race conditions, realistic brute-force sizes with measured timings, and the setup guide linked right inside the lab.</p>
+        <div class="card-foot"><span class="badge-new">Burp-first, for real</span></div>
+      </article>
+      <article class="clay-card" data-reveal data-rdg="3">
+        <div class="card-top"><img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true"><h3>565 tests, all green</h3></div>
+        <p>The regression suite grew from 490 to 565 tests, including adversarial tests that try every known cheat and two-student isolation tests. If a shortcut ever comes back, the suite fails.</p>
+        <div class="card-foot"><span class="badge-new"><a href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab/releases/tag/v1.1.0">Read the v1.1.0 release notes</a></span></div>
+      </article>
+    </div>
+  </section>
+
   <section class="wrap" id="compare" aria-labelledby="compare-h">
     <h2 id="compare-h" data-reveal>Why PenTrix</h2>
     <p class="tagline" data-reveal>How PenTrix VulnLab compares to the labs you already know.</p>
