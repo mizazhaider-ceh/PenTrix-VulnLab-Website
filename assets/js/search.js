@@ -242,9 +242,14 @@
         } else if (key === "ArrowUp") {
           e.preventDefault();
           if (n) setActive(active > 0 ? active - 1 : n - 1);
-        } else if (key === "Enter" && active >= 0 && active < n) {
+        } else if (key === "Enter") {
           e.preventDefault();
-          go(results[active].u);
+          if (active >= 0 && active < n) {
+            go(results[active].u);
+          } else if (n) {
+            /* No arrow selection yet: Enter opens the top result. */
+            go(results[0].u);
+          }
         }
       }
     } catch (err) {}

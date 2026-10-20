@@ -422,7 +422,11 @@
 
     var path = "";
     try { path = window.location.pathname || ""; } catch (e) {}
-    if (/(^|\/)install\.html$/.test(path)) return;
+    if (/(^|\/)install\.html$/.test(path)) {
+      /* The CTA links to install.html, so remove it there entirely. */
+      bar.parentNode.removeChild(bar);
+      return;
+    }
 
     var dismissed = false;
     try { dismissed = window.localStorage.getItem(STORAGE_KEY) === "1"; } catch (e) {}
