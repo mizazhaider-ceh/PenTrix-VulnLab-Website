@@ -14,6 +14,11 @@
     try { countUps(); } catch (e) {}
     try { navScroll(); } catch (e) {}
     try { tilt(); } catch (e) {}
+    try { lastUpdated(); } catch (e) {}
+    try { mobileNav(); } catch (e) {}
+    try { mobileCta(); } catch (e) {}
+    try { floatingUI(); } catch (e) {}
+    try { mediaLoading(); } catch (e) {}
     try {
       var hv = document.querySelector(".hero-video video");
       if (hv && reducedMotion) { hv.removeAttribute("autoplay"); hv.pause(); }
@@ -182,28 +187,32 @@
     }
   }
 
-  /* 4. Scroll + hero reveals: [data-reveal] and [data-hero] enter with
-     transition + .in class. Hero stagger comes from CSS [data-hero="N"]
-     rules, so never set inline transitionDelay on hero elements.
-     A 2s safety net force-reveals everything so nothing can stay
-     invisible even if IntersectionObserver never fires. */
+  /* 4. Scroll + hero reveals: [data-hero] elements are above the fold by
+     definition, so they get .in immediately during init and their CSS
+     [data-hero="N"] stagger delays still animate them in beautifully.
+     IntersectionObserver watches ONLY [data-reveal] below-fold elements.
+     A 600ms safety net force-reveals everything as a backstop, so nothing
+     can stay invisible even if the observer never fires. */
   function reveals() {
-    var els = document.querySelectorAll("[data-reveal],[data-hero]");
+    /* Above-the-fold hero content: reveal instantly at init. Never blank. */
+    var heroes = document.querySelectorAll("[data-hero]");
+    for (var h = 0; h < heroes.length; h++) heroes[h].classList.add("in");
+    var els = document.querySelectorAll("[data-reveal]");
     if (!els.length) return;
     if (reducedMotion || !("IntersectionObserver" in window)) {
       for (var i = 0; i < els.length; i++) els[i].classList.add("in");
       return;
     }
-    /* Safety net FIRST: force-reveal everything after 2s so content can
-       never stay invisible, even if the observer setup below throws.
-       The observer still gives scroll animations to fast scrollers;
-       this is the guarantee underneath it. */
+    /* Safety net FIRST: backstop after 600ms so content can never stay
+       invisible, even if the observer setup below throws. The observer
+       is the primary reveal path for below-fold content; this only fires
+       if something went wrong. */
     setTimeout(function () {
       try {
         var all = document.querySelectorAll("[data-hero],[data-reveal]");
         for (var k = 0; k < all.length; k++) all[k].classList.add("in");
       } catch (e) {}
-    }, 2000);
+    }, 600);
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
@@ -330,6 +339,231 @@
           });
         })(cards[i]);
       }
+    }
+  }
+
+
+  /* 8. Footer "Last updated" line: rendered from document.lastModified,
+     formatted en-GB ("20 Oct 2026"). JS injects it after the credit line,
+     so without JS the line simply does not appear. No manual upkeep. */
+  function lastUpdated() {
+    try {
+      var foot = document.querySelector("footer.foot");
+      if (!foot) return;
+      var credit = foot.querySelector(".credit");
+      if (!credit) return;
+      var d = new Date(document.lastModified);
+      if (isNaN(d.getTime())) return;
+      var text = d.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
+      var p = document.createElement("p");
+      p.className = "updated";
+      p.textContent = "Last updated: " + text;
+      credit.insertAdjacentElement("afterend", p);
+    } catch (e) {}
+  }
+
+  /* 9. Mobile nav toggle (hamburger, <=720px) */
+  function mobileNav() {
+    var btn = document.querySelector(".nav-toggle");
+    var nav = document.getElementById("mainnav");
+    if (!btn || !nav) return;
+    var mq = window.matchMedia ? window.matchMedia("(max-width:720px)") : null;
+
+    function close(returnFocus) {
+      if (!nav.classList.contains("open")) return;
+      nav.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+      btn.setAttribute("aria-label", "Open menu");
+      if (returnFocus) { try { btn.focus(); } catch (e) {} }
+    }
+
+    function open() {
+      nav.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+      btn.setAttribute("aria-label", "Close menu");
+      var first = nav.querySelector("a");
+      if (first) { try { first.focus(); } catch (e) {} }
+    }
+
+    btn.addEventListener("click", function () {
+      if (nav.classList.contains("open")) { close(false); } else { open(); }
+    });
+
+    nav.addEventListener("click", function (ev) {
+      if (ev.target.closest("a")) close(false);
+    });
+
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape") close(true);
+    });
+
+    document.addEventListener("click", function (ev) {
+      if (!nav.classList.contains("open")) return;
+      if (ev.target.closest(".topbar")) return;
+      close(false);
+    });
+
+    if (mq) {
+      var onChange = function () { if (!mq.matches) close(false); };
+      if (mq.addEventListener) { mq.addEventListener("change", onChange); }
+      else if (mq.addListener) { mq.addListener(onChange); }
+    }
+  }
+
+  /* 10. Mobile sticky CTA bar: show once, dismiss forever, slide away over the footer. */
+  function mobileCta() {
+    var STORAGE_KEY = "pentrix-mobile-cta-dismissed";
+    var bar = document.getElementById("mobileCta");
+    if (!bar) return;
+
+    var path = "";
+    try { path = window.location.pathname || ""; } catch (e) {}
+    if (/(^|\/)install\.html$/.test(path)) return;
+
+    var dismissed = false;
+    try { dismissed = window.localStorage.getItem(STORAGE_KEY) === "1"; } catch (e) {}
+    if (dismissed) {
+      bar.parentNode.removeChild(bar);
+      return;
+    }
+
+    var dismissBtn = document.getElementById("mobileCtaDismiss");
+
+    function dismiss(permanent) {
+      bar.classList.add("is-dismissed");
+      if (permanent) {
+        try { window.localStorage.setItem(STORAGE_KEY, "1"); } catch (e) {}
+      }
+      setTimeout(function () {
+        if (bar.parentNode) bar.parentNode.removeChild(bar);
+      }, 450);
+    }
+
+    if (dismissBtn) {
+      dismissBtn.addEventListener("click", function () { dismiss(true); });
+    }
+
+    var foot = document.querySelector("footer.foot");
+    if (!foot) return;
+
+    function setOverFooter(isOver) {
+      bar.classList.toggle("is-over-footer", isOver);
+    }
+
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          setOverFooter(entries[i].isIntersecting);
+        }
+      }, { threshold: 0.05 });
+      io.observe(foot);
+    } else {
+      function onScroll() {
+        var r;
+        try { r = foot.getBoundingClientRect(); } catch (e) { return; }
+        setOverFooter(r.top < window.innerHeight && r.bottom > 0);
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      onScroll();
+    }
+  }
+
+  /* 11. Floating UI: scroll progress bar + back-to-top button.
+     One rAF-throttled scroll listener drives both. */
+  function floatingUI() {
+    var bar = document.getElementById("progressBar");
+    var toTop = document.getElementById("toTop");
+    var ticking = false;
+
+    function docHeight() {
+      try {
+        return document.documentElement.scrollHeight - window.innerHeight;
+      } catch (e) {
+        return 0;
+      }
+    }
+
+    function update() {
+      ticking = false;
+      var y = 0;
+      try { y = window.scrollY || window.pageYOffset || 0; } catch (e) {}
+      var max = docHeight();
+
+      if (bar) {
+        var p = max > 0 ? Math.min(Math.max(y / max, 0), 1) : 0;
+        try { bar.style.transform = "scaleX(" + p + ")"; } catch (e) {}
+      }
+
+      if (toTop) {
+        var show = y > 600;
+        if (show !== toTop.classList.contains("is-visible")) {
+          toTop.classList.toggle("is-visible", show);
+        }
+      }
+    }
+
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      if (window.requestAnimationFrame) {
+        window.requestAnimationFrame(update);
+      } else {
+        setTimeout(update, 16);
+      }
+    }
+
+    if (bar || toTop) {
+      window.addEventListener("scroll", requestUpdate, { passive: true });
+      window.addEventListener("resize", requestUpdate);
+      update();
+    }
+
+    if (toTop) {
+      toTop.addEventListener("click", function (event) {
+        event.preventDefault();
+        try {
+          window.scrollTo({
+            top: 0,
+            behavior: reducedMotion ? "auto" : "smooth"
+          });
+        } catch (e) {
+          try { window.scrollTo(0, 0); } catch (e2) {}
+        }
+      });
+    }
+  }
+
+  /* 12. Soft shimmer placeholders for hero video and screenshots.
+     Adds .loaded to each .skel wrapper once the asset is ready. */
+  function mediaLoading() {
+    var items;
+    try {
+      items = document.querySelectorAll(".skel");
+    } catch (e) {
+      return;
+    }
+    for (var i = 0; i < items.length; i++) {
+      (function (box) {
+        var media = box.querySelector("img, video");
+        if (!media) return;
+        function done() {
+          box.classList.add("loaded");
+        }
+        if (media.tagName === "VIDEO") {
+          if (media.readyState >= 2) { done(); return; }
+          media.addEventListener("canplay", done, { once: true });
+          media.addEventListener("error", done, { once: true });
+        } else {
+          if (media.complete && media.naturalWidth > 0) { done(); return; }
+          media.addEventListener("load", done, { once: true });
+          media.addEventListener("error", done, { once: true });
+        }
+      })(items[i]);
     }
   }
 

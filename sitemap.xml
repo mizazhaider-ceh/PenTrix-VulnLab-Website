@@ -35,4 +35,16 @@
     <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/privacy.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/terms.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>

@@ -11,6 +11,7 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="mask-icon" href="assets/img/favicon.svg" color="#7C3AED">
+<!-- Analytics: not installed. To enable privacy-friendly analytics (Plausible or Umami recommended), paste the snippet here. Owner approval required before adding any tracker. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
@@ -24,7 +25,7 @@
 <meta property="og:image" content="https://mizazhaider-ceh.github.io/PenTrix-VulnLab-Website/assets/img/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="PenTrix VulnLab web hacking toolkit: Burp Suite and the essential tools">
+<meta property="og:image:alt" content="PenTrix VulnLab: learn web security by breaking real websites. 201 challenges, 29 modules, 3 scenarios.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Web Hacking Toolkit - PenTrix VulnLab Tools">
 <meta name="twitter:description" content="The PenTrix VulnLab web hacking toolkit: Burp Suite setup, proxy config, the core intercept and replay workflow, and the essential command-line tools every challenge rewards.">
@@ -37,7 +38,10 @@
       <img class="mark" src="assets/img/logo.svg" alt="" width="34" height="34" aria-hidden="true">
       <span>PenTrix VulnLab</span>
     </a>
-    <nav aria-label="Main navigation">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mainnav" aria-label="Open menu">
+      <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <nav id="mainnav" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="install.html">Install</a>
       <a href="quickstart.html">Quick Start</a>
@@ -45,13 +49,35 @@
       <a href="tools.html" aria-current="page">Tools</a>
       <a href="modules.html">Modules</a>
       <a class="clay-btn clay-btn-sm" href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener">GitHub</a>
+    <button class="search-btn" id="search-open" type="button" aria-label="Search this site" aria-expanded="false" title="Search (press /)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg>
+    </button>
     </nav>
   </div>
 </header>
+<!-- Site search overlay. The button lives in the header nav. -->
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-labelledby="search-label" hidden>
+  <div class="search-backdrop"></div>
+  <div class="search-panel">
+    <span class="visually-hidden" id="search-label">Search this site</span>
+    <div class="search-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg>
+      <input class="search-input" id="search-input" type="search" placeholder="Search pages, modules, tools..." autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list">
+      <button class="search-close" id="search-close" type="button" aria-label="Close search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <ul class="search-results" id="search-results" role="listbox" aria-label="Search results"></ul>
+    <p class="search-foot"><kbd>/</kbd> opens search <kbd>Esc</kbd> closes <kbd>&uarr;</kbd><kbd>&darr;</kbd> moves <kbd>Enter</kbd> opens result</p>
+  </div>
+</div>
+
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <div class="blobs" aria-hidden="true"><span class="blob-1"></span><span class="blob-2"></span><span class="blob-3"></span></div>
 
-<main class="wrap">
+<main id="main-content" class="wrap">
   <section class="hero">
     <h1 data-hero="1">Web Hacking Toolkit: Burp Suite + the tools that matter</h1>
     <p class="tagline" data-hero="2">You do not need fifty tools. You need Burp Suite set up correctly, a handful of command-line workhorses, and a workflow you repeat until it is muscle memory. This page gets you from zero to intercepting traffic in about twenty minutes.</p>
@@ -344,11 +370,44 @@ node -e "console.log(require('jsonwebtoken').decode(process.argv[1]))" "eyJhbGci
       <a href="docs.html">Docs</a>
       <a href="tools.html">Tools</a>
       <a href="modules.html">Modules</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
     </nav>
     <p class="credit"><img class="foot-mark" src="assets/img/logo.svg" alt="PenTrix VulnLab logo" width="22" height="22"> Built by Muhammad Izaz Haider (<a href="https://github.com/mizazhaider-ceh" target="_blank" rel="noopener">@mizazhaider-ceh</a>) &middot; <a href="https://www.linkedin.com/in/muhammad-izaz-haider-091639314/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://www.mizazhaider-ceh.dev/" target="_blank" rel="noopener">Portfolio</a></p>
   </div>
 </footer>
 
+<!-- Mobile sticky CTA bar: single action for phone widths only -->
+<div class="mobile-cta" id="mobileCta" role="region" aria-label="Quick action">
+  <a class="mobile-cta-action" href="install.html">
+    <svg class="mobile-cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 20h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Install the lab</span>
+  </a>
+  <button class="mobile-cta-dismiss" type="button" id="mobileCtaDismiss" aria-label="Dismiss the install banner">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+      <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </button>
+</div>
+
+<!-- Floating UI: scroll progress + bottom-right action cluster -->
+<div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+
+<a class="fab fab-github" href="https://github.com/mizazhaider-ceh/PenTrix-VulnLab" target="_blank" rel="noopener" aria-label="GitHub repository">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+  </svg>
+</a>
+
+<a class="fab to-top" id="toTop" href="#" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 19V5m0 0l-7 7m7-7l7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+
 <script src="assets/js/site.js" defer></script>
+<script src="assets/js/search.js" defer></script>
 </body>
 </html>
